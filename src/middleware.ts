@@ -7,7 +7,9 @@ export async function middleware(request: NextRequest) {
   const protectedRoutes = ['/admin']
   const publicRoutes = ['/admin/login']
   const path = request.nextUrl.pathname
-  const isProtectedRoute = protectedRoutes.some((route) => path.startsWith(route))
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    path.startsWith(route),
+  )
   const isPublicRoute = publicRoutes.includes(path)
 
   if (isProtectedRoute && !isPublicRoute) {

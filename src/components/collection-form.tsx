@@ -5,7 +5,7 @@ import { createCollection, updateCollection } from '@/actions/collections'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea' // Need to add textarea
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 // I need to install textarea component. I'll stick to Input for now or add textarea later.
@@ -13,9 +13,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 // Actually, I should install textarea component or just use Input for description if short, but description is long.
 // I'll usage standard textarea with shadcn class 'flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
 
-export function CollectionForm({ collection }: { collection?: any }) {
+import { Collection } from '@prisma/client'
+
+// ... existing code ...
+
+export function CollectionForm({ collection }: { collection?: Collection }) {
   const isEdit = !!collection
-  const action = isEdit ? updateCollection.bind(null, collection.id) : createCollection
+  const action = isEdit
+    ? updateCollection.bind(null, collection.id)
+    : createCollection
   const [state, formAction] = useActionState(action, undefined)
 
   return (
@@ -27,25 +33,51 @@ export function CollectionForm({ collection }: { collection?: any }) {
         <form action={formAction} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="title">Title</Label>
-            <Input id="title" name="title" defaultValue={collection?.title} required />
-            {state?.errors?.title && <p className="text-red-500 text-sm">{state.errors.title}</p>}
+            <Input
+              id="title"
+              name="title"
+              defaultValue={collection?.title}
+              required
+            />
+            {state?.errors?.title && (
+              <p className="text-sm text-red-500">{state.errors.title}</p>
+            )}
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="slug">Slug</Label>
-            <Input id="slug" name="slug" defaultValue={collection?.slug} required />
-            {state?.errors?.slug && <p className="text-red-500 text-sm">{state.errors.slug}</p>}
+            <Input
+              id="slug"
+              name="slug"
+              defaultValue={collection?.slug}
+              required
+            />
+            {state?.errors?.slug && (
+              <p className="text-sm text-red-500">{state.errors.slug}</p>
+            )}
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="order">Order</Label>
-            <Input id="order" name="order" type="number" defaultValue={collection?.order || 0} required />
-            {state?.errors?.order && <p className="text-red-500 text-sm">{state.errors.order}</p>}
+            <Input
+              id="order"
+              name="order"
+              type="number"
+              defaultValue={collection?.order || 0}
+              required
+            />
+            {state?.errors?.order && (
+              <p className="text-sm text-red-500">{state.errors.order}</p>
+            )}
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="tagline">Tagline</Label>
-            <Input id="tagline" name="tagline" defaultValue={collection?.tagline} />
+            <Input
+              id="tagline"
+              name="tagline"
+              defaultValue={collection?.tagline || ''}
+            />
           </div>
 
           <div className="space-y-2">
@@ -53,14 +85,18 @@ export function CollectionForm({ collection }: { collection?: any }) {
             <textarea
               id="description"
               name="description"
-              className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex min-h-[80px] w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
               defaultValue={collection?.description}
               required
             />
-            {state?.errors?.description && <p className="text-red-500 text-sm">{state.errors.description}</p>}
+            {state?.errors?.description && (
+              <p className="text-sm text-red-500">{state.errors.description}</p>
+            )}
           </div>
 
-          {state?.message && <p className="text-red-500 text-sm">{state.message}</p>}
+          {state?.message && (
+            <p className="text-sm text-red-500">{state.message}</p>
+          )}
 
           <div className="flex justify-end gap-2">
             <Button type="submit">{isEdit ? 'Update' : 'Create'}</Button>

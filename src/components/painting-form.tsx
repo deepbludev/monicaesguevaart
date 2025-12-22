@@ -6,14 +6,21 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
-export function PaintingForm({ collectionId, painting }: { collectionId: string; painting?: any }) {
+import { Painting } from '@prisma/client'
+
+export function PaintingForm({
+  collectionId,
+  painting,
+}: {
+  collectionId: string
+  painting?: Painting
+}) {
   const isEdit = !!painting
-  const action = isEdit 
-    ? updatePainting.bind(null, collectionId, painting.id) 
+  const action = isEdit
+    ? updatePainting.bind(null, collectionId, painting.id)
     : createPainting.bind(null, collectionId)
-  
+
   const [state, formAction] = useActionState(action, undefined)
 
   return (
@@ -25,8 +32,15 @@ export function PaintingForm({ collectionId, painting }: { collectionId: string;
         <form action={formAction} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="title">Title</Label>
-            <Input id="title" name="title" defaultValue={painting?.title} required />
-            {state?.errors?.title && <p className="text-red-500 text-sm">{state.errors.title}</p>}
+            <Input
+              id="title"
+              name="title"
+              defaultValue={painting?.title}
+              required
+            />
+            {state?.errors?.title && (
+              <p className="text-sm text-red-500">{state.errors.title}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -34,42 +48,72 @@ export function PaintingForm({ collectionId, painting }: { collectionId: string;
             <textarea
               id="description"
               name="description"
-               className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              defaultValue={painting?.description}
+              className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex min-h-[80px] w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              defaultValue={painting?.description || ''}
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="medium">Medium</Label>
-              <Input id="medium" name="medium" defaultValue={painting?.medium} />
+              <Input
+                id="medium"
+                name="medium"
+                defaultValue={painting?.medium || ''}
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="size">Size</Label>
-              <Input id="size" name="size" defaultValue={painting?.size} />
+              <Input
+                id="size"
+                name="size"
+                defaultValue={painting?.size || ''}
+              />
             </div>
           </div>
 
-           <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="year">Year</Label>
-              <Input id="year" name="year" defaultValue={painting?.year} />
+              <Input
+                id="year"
+                name="year"
+                defaultValue={painting?.year || ''}
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="order">Order</Label>
-              <Input id="order" name="order" type="number" defaultValue={painting?.order || 0} />
+              <Input
+                id="order"
+                name="order"
+                type="number"
+                defaultValue={painting?.order || 0}
+              />
             </div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="imageUrl">Image URL</Label>
-            <Input id="imageUrl" name="imageUrl" defaultValue={painting?.imageUrl} required />
-             {state?.errors?.imageUrl && <p className="text-red-500 text-sm">{state.errors.imageUrl}</p>}
+            <Input
+              id="imageUrl"
+              name="imageUrl"
+              defaultValue={painting?.imageUrl}
+              required
+            />
+            {state?.errors?.imageUrl && (
+              <p className="text-sm text-red-500">{state.errors.imageUrl}</p>
+            )}
           </div>
 
           <div className="flex items-center space-x-2">
-              <input type="checkbox" id="available" name="available" defaultChecked={painting?.available ?? true} className="h-4 w-4" />
-              <Label htmlFor="available">Available</Label>
+            <input
+              type="checkbox"
+              id="available"
+              name="available"
+              defaultChecked={painting?.available ?? true}
+              className="h-4 w-4"
+            />
+            <Label htmlFor="available">Available</Label>
           </div>
 
           <div className="flex justify-end gap-2">

@@ -29,8 +29,10 @@ export function AdminSidebar() {
               key={link.href}
               href={link.href}
               className={cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary',
-                isActive ? 'bg-gray-200 text-primary dark:bg-gray-800' : 'text-muted-foreground'
+                'hover:text-primary flex items-center gap-3 rounded-lg px-3 py-2 transition-all',
+                isActive
+                  ? 'text-primary bg-gray-200 dark:bg-gray-800'
+                  : 'text-muted-foreground',
               )}
             >
               <Icon className="h-4 w-4" />

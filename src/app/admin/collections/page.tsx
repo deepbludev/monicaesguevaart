@@ -41,13 +41,18 @@ export default async function CollectionsPage() {
             {collections.map((collection) => (
               <TableRow key={collection.id}>
                 <TableCell>{collection.order}</TableCell>
-                <TableCell className="font-medium">{collection.title}</TableCell>
+                <TableCell className="font-medium">
+                  {collection.title}
+                </TableCell>
                 <TableCell>{collection.slug}</TableCell>
                 <TableCell>{collection._count.paintings}</TableCell>
-                <TableCell className="text-right space-x-2">
+                <TableCell className="space-x-2 text-right">
                   <Button variant="ghost" size="icon" asChild>
-                    <Link href={`/admin/collections/${collection.id}/paintings`} title="Manage Paintings">
-                       <Images className="h-4 w-4" />
+                    <Link
+                      href={`/admin/collections/${collection.id}/paintings`}
+                      title="Manage Paintings"
+                    >
+                      <Images className="h-4 w-4" />
                     </Link>
                   </Button>
                   <Button variant="ghost" size="icon" asChild>
@@ -55,8 +60,15 @@ export default async function CollectionsPage() {
                       <Edit className="h-4 w-4" />
                     </Link>
                   </Button>
-                  <form action={deleteCollection.bind(null, collection.id)} className="inline">
-                    <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-600">
+                  <form
+                    action={deleteCollection.bind(null, collection.id)}
+                    className="inline"
+                  >
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-red-500 hover:text-red-600"
+                    >
                       <Trash className="h-4 w-4" />
                     </Button>
                   </form>

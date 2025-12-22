@@ -10,35 +10,44 @@ const purposes = [
 
 export function PurposeSection() {
   return (
-    <section className="py-24 md:py-32 bg-secondary/30 relative overflow-hidden">
-        {/* Decorative background elements could go here */}
+    <section className="bg-secondary/30 relative overflow-hidden py-24 md:py-32">
+      {/* Decorative background elements could go here */}
       <div className="container mx-auto px-6 text-center">
-        <h2 className="text-4xl md:text-5xl font-serif mb-8 text-primary">
+        <h2 className="text-primary mb-8 font-serif text-4xl md:text-5xl">
           The Purpose of This Art
         </h2>
-        
-        <div className="max-w-4xl mx-auto space-y-12">
-          <p className="text-xl md:text-2xl leading-relaxed font-light">
-            A visual language transmitted through intuition, silence, and the unseen.
-            Each painting carries a specific vibration designed to <span className="text-primary font-medium">support the awakening process</span>.
+
+        <div className="mx-auto max-w-4xl space-y-12">
+          <p className="text-xl leading-relaxed font-light md:text-2xl">
+            A visual language transmitted through intuition, silence, and the
+            unseen. Each painting carries a specific vibration designed to{' '}
+            <span className="text-primary font-medium">
+              support the awakening process
+            </span>
+            .
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-8">
+          <div className="grid grid-cols-1 gap-8 pt-8 md:grid-cols-2 lg:grid-cols-3">
             {purposes.map((item, idx) => {
-                const Icon = item.icon
-                return (
-                    <div key={idx} className="flex flex-col items-center gap-4 p-6 rounded-xl border border-border/50 bg-background/50 hover:bg-background transition-all duration-500 hover:shadow-lg hover:-translate-y-1 group">
-                        <div className="p-4 rounded-full bg-secondary text-primary group-hover:scale-110 transition-transform duration-500">
-                             <Icon className="h-8 w-8" />
-                        </div>
-                        <span className="text-lg font-medium tracking-wide">{item.label}</span>
-                    </div>
-                )
+              const Icon = item.icon
+              return (
+                <div
+                  key={idx}
+                  className="border-border/50 bg-background/50 hover:bg-background group flex flex-col items-center gap-4 rounded-xl border p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <div className="bg-secondary text-primary rounded-full p-4 transition-transform duration-500 group-hover:scale-110">
+                    <Icon className="h-8 w-8" />
+                  </div>
+                  <span className="text-lg font-medium tracking-wide">
+                    {item.label}
+                  </span>
+                </div>
+              )
             })}
           </div>
 
-          <p className="text-lg md:text-xl font-serif italic text-muted-foreground pt-8">
-            "This is art as energetic technology — a bridge between worlds."
+          <p className="text-muted-foreground pt-8 font-serif text-lg italic md:text-xl">
+            &quot;Art is not just about what you see, but what you feel.&quot;
           </p>
         </div>
       </div>

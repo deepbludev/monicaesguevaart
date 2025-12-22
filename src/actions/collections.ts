@@ -29,7 +29,11 @@ export async function getCollectionBySlug(slug: string) {
   })
 }
 
-export async function createCollection(prevState: any, formData: FormData) {
+import { Prisma } from '@prisma/client'
+
+// ... existing code ...
+
+export async function createCollection(prevState: unknown, formData: FormData) {
   const data = Object.fromEntries(formData)
   const parsed = collectionSchema.safeParse({
     ...data,
@@ -44,8 +48,11 @@ export async function createCollection(prevState: any, formData: FormData) {
     await prisma.collection.create({
       data: parsed.data,
     })
-  } catch (e: any) {
-    if (e.code === 'P2002') {
+  } catch (e: unknown) {
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code === 'P2002'
+    ) {
       return { message: 'Slug already exists' }
     }
     return { message: 'Failed to create collection' }
@@ -55,7 +62,11 @@ export async function createCollection(prevState: any, formData: FormData) {
   redirect('/admin/collections')
 }
 
-export async function updateCollection(id: string, prevState: any, formData: FormData) {
+export async function updateCollection(
+  id: string,
+  prevState: unknown,
+  formData: FormData,
+) {
   const data = Object.fromEntries(formData)
   const parsed = collectionSchema.safeParse({
     ...data,
@@ -71,8 +82,11 @@ export async function updateCollection(id: string, prevState: any, formData: For
       where: { id },
       data: parsed.data,
     })
-  } catch (e: any) {
-    if (e.code === 'P2002') {
+  } catch (e: unknown) {
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code === 'P2002'
+    ) {
       return { message: 'Slug already exists' }
     }
     return { message: 'Failed to update collection' }

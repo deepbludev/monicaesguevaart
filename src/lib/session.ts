@@ -6,7 +6,14 @@ import { redirect } from 'next/navigation'
 const secretKey = process.env.SESSION_SECRET || 'default_secret_key_change_me'
 const key = new TextEncoder().encode(secretKey)
 
-export async function encrypt(payload: any) {
+import { JWTPayload } from 'jose'
+
+interface SessionPayload extends JWTPayload {
+  userId: string
+  expires: Date
+}
+
+export async function encrypt(payload: SessionPayload) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -20,7 +27,7 @@ export async function decrypt(session: string | undefined = '') {
       algorithms: ['HS256'],
     })
     return payload
-  } catch (error) {
+  } catch {
     return null
   }
 }

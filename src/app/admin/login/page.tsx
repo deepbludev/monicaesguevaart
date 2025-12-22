@@ -6,7 +6,13 @@ import { login } from '@/actions/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 
 function SubmitButton() {
   const { pending } = useFormStatus()
@@ -25,21 +31,35 @@ export default function LoginPage() {
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Admin Login</CardTitle>
-          <CardDescription>Enter your credentials to access the dashboard.</CardDescription>
+          <CardDescription>
+            Enter your credentials to access the dashboard.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form action={action} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" placeholder="admin@example.com" required />
-              {state?.errors?.email && <p className="text-red-500 text-sm">{state.errors.email}</p>}
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="admin@example.com"
+                required
+              />
+              {state?.errors?.email && (
+                <p className="text-sm text-red-500">{state.errors.email}</p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input id="password" name="password" type="password" required />
-              {state?.errors?.password && <p className="text-red-500 text-sm">{state.errors.password}</p>}
+              {state?.errors?.password && (
+                <p className="text-sm text-red-500">{state.errors.password}</p>
+              )}
             </div>
-            {state?.message && <p className="text-red-500 text-sm">{state.message}</p>}
+            {state?.message && (
+              <p className="text-sm text-red-500">{state.message}</p>
+            )}
             <SubmitButton />
           </form>
         </CardContent>

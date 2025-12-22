@@ -1,35 +1,61 @@
+'use client'
+
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 
 export function HeroSection() {
   return (
-    <section className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden">
-      {/* Background - In real app, this would be an image or video */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-background z-0" />
-      <div className="absolute inset-0 bg-[url('https://placehold.co/1920x1080/000000/FFFFFF/png?text=Mystical+Art+Background')] bg-cover bg-center -z-10 opacity-60" />
-
-      <div className="container relative z-10 px-6 text-center text-white space-y-8 animate-in fade-in duration-1000 slide-in-from-bottom-10">
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium tracking-tight">
-          Art as a Path of Awakening
-        </h1>
-        
-        <p className="max-w-3xl mx-auto text-xl md:text-2xl font-light tracking-wide opacity-90">
-          Paintings carrying coded frequencies to activate intuition, remembrance, and Ascension.
-        </p>
-
-        <p className="max-w-2xl mx-auto text-base md:text-lg opacity-80 italic">
-          These works are living fields of energy. They speak directly to the soul, softening the veils of perception and opening pathways to higher consciousness.
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
-          <Button asChild size="lg" className="bg-white text-black hover:bg-white/90 text-lg px-8 py-6 rounded-full uppercase tracking-widest">
-            <Link href="/collections">Enter the Collections</Link>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="text-white border-white hover:bg-white/10 text-lg px-8 py-6 rounded-full uppercase tracking-widest backdrop-blur-sm">
-            <Link href="/about">Experience the Transmission</Link>
-          </Button>
-        </div>
+    <section className="relative h-screen w-full overflow-hidden">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage:
+            'url(https://placehold.co/1920x1080/1a1a1a/ffffff/png?text=Monica+Esgueva+Art)',
+        }}
+      >
+        <div className="absolute inset-0 bg-black/40" />
       </div>
+
+      {/* Content */}
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="space-y-6"
+        >
+          <h1 className="font-serif text-5xl tracking-wider md:text-7xl lg:text-8xl">
+            MONICA ESGUEVA
+          </h1>
+          <p className="text-lg font-light tracking-[0.2em] uppercase opacity-90 md:text-xl">
+            Art that Speaks to the Soul
+          </p>
+
+          <div className="pt-8">
+            <Button
+              asChild
+              size="lg"
+              className="transform rounded-none bg-white px-8 py-6 text-sm tracking-[0.2em] text-black uppercase transition-all duration-300 hover:scale-105 hover:bg-white/90"
+            >
+              <Link href="/collections">Enter Gallery</Link>
+            </Button>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
+        <div className="h-16 w-[1px] overflow-hidden bg-white/50">
+          <div className="animate-pulldown h-full w-full origin-top bg-white" />
+        </div>
+      </motion.div>
     </section>
   )
 }

@@ -14,7 +14,10 @@ const paintingSchema = z.object({
   size: z.string().optional(),
   year: z.string().optional(),
   imageUrl: z.string().min(1),
-  available: z.string().transform((val) => val === 'true').optional(),
+  available: z
+    .string()
+    .transform((val) => val === 'true')
+    .optional(),
   order: z.number().int().optional().default(0),
 })
 
@@ -29,18 +32,24 @@ export async function getPainting(id: string) {
   return await prisma.painting.findUnique({ where: { id } })
 }
 
-export async function createPainting(collectionId: string, prevState: any, formData: FormData) {
+export async function createPainting(
+  collectionId: string,
+  prevState: unknown,
+  formData: FormData,
+) {
   const data = Object.fromEntries(formData)
   const available = data.available === 'on' || data.available === 'true'
 
-  const parsed = paintingSchema.extend({
+  const parsed = paintingSchema
+    .extend({
       available: z.boolean().default(true),
-      order: z.coerce.number().default(0)
-  }).safeParse({
-    ...data,
-    available,
-    order: data.order
-  })
+      order: z.coerce.number().default(0),
+    })
+    .safeParse({
+      ...data,
+      available,
+      order: data.order,
+    })
 
   if (!parsed.success) {
     return { errors: parsed.error.flatten().fieldErrors }
@@ -57,18 +66,25 @@ export async function createPainting(collectionId: string, prevState: any, formD
   redirect(`/admin/collections/${collectionId}/paintings`)
 }
 
-export async function updatePainting(collectionId: string, paintingId: string, prevState: any, formData: FormData) {
+export async function updatePainting(
+  collectionId: string,
+  paintingId: string,
+  prevState: unknown,
+  formData: FormData,
+) {
   const data = Object.fromEntries(formData)
   const available = data.available === 'on' || data.available === 'true'
 
-  const parsed = paintingSchema.extend({
+  const parsed = paintingSchema
+    .extend({
       available: z.boolean().default(true),
-      order: z.coerce.number().default(0)
-  }).safeParse({
-    ...data,
-    available,
-    order: data.order
-  })
+      order: z.coerce.number().default(0),
+    })
+    .safeParse({
+      ...data,
+      available,
+      order: data.order,
+    })
 
   if (!parsed.success) {
     return { errors: parsed.error.flatten().fieldErrors }

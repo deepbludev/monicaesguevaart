@@ -4,7 +4,11 @@ import { notFound } from 'next/navigation'
 
 const prisma = new PrismaClient()
 
-export default async function EditCollectionPage({ params }: { params: { id: string } }) {
+export default async function EditCollectionPage({
+  params,
+}: {
+  params: { id: string }
+}) {
   const collection = await prisma.collection.findUnique({
     where: { id: params.id },
   })
@@ -14,7 +18,7 @@ export default async function EditCollectionPage({ params }: { params: { id: str
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="mx-auto max-w-2xl">
       <CollectionForm collection={collection} />
     </div>
   )

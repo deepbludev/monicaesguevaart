@@ -1,29 +1,85 @@
 import Link from 'next/link'
-import { Instagram, Mail } from 'lucide-react' // Using generic icons for now
+import { Instagram, Mail } from 'lucide-react'
 
 export function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
-    <footer className="bg-primary text-primary-foreground py-16">
-      <div className="container mx-auto px-6 flex flex-col items-center text-center gap-8">
-        <h2 className="text-3xl font-serif italic">Art That Awakens the Soul</h2>
-        
-        <div className="flex gap-6">
-          <Link href="/collections" className="text-sm tracking-widest hover:text-accent transition-colors">COLLECTIONS</Link>
-          <Link href="/about" className="text-sm tracking-widest hover:text-accent transition-colors">ABOUT</Link>
-          <Link href="/contact" className="text-sm tracking-widest hover:text-accent transition-colors">CONTACT</Link>
+    <footer className="border-t bg-neutral-50 py-12 dark:bg-neutral-900">
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
+          {/* Brand */}
+          <div className="space-y-6 md:col-span-2">
+            <Link
+              href="/"
+              className="block font-serif text-2xl tracking-widest uppercase"
+            >
+              Monica Esgueva
+            </Link>
+            <p className="text-muted-foreground max-w-sm font-light">
+              Sacred art that serves as a portal to higher dimensions. Helping
+              you reconnect with your soul's essence.
+            </p>
+          </div>
+
+          {/* Navigation */}
+          <div className="space-y-4">
+            <h4 className="font-serif text-lg">Explore</h4>
+            <nav className="text-muted-foreground flex flex-col gap-2 text-sm">
+              <Link
+                href="/collections"
+                className="hover:text-primary transition-colors"
+              >
+                Collections
+              </Link>
+              <Link
+                href="/about"
+                className="hover:text-primary transition-colors"
+              >
+                About
+              </Link>
+              <Link
+                href="/contact"
+                className="hover:text-primary transition-colors"
+              >
+                Contact
+              </Link>
+              <Link
+                href="/login"
+                className="hover:text-primary transition-colors"
+              >
+                Admin
+              </Link>
+            </nav>
+          </div>
+
+          {/* Social / Contact */}
+          <div className="space-y-4">
+            <h4 className="font-serif text-lg">Connect</h4>
+            <nav className="text-muted-foreground flex flex-col gap-2 text-sm">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary flex items-center gap-2 transition-colors"
+              >
+                <Instagram className="h-4 w-4" />
+                <span>Instagram</span>
+              </a>
+              <Link
+                href="/contact"
+                className="hover:text-primary flex items-center gap-2 transition-colors"
+              >
+                <Mail className="h-4 w-4" />
+                <span>Contact</span>
+              </Link>
+            </nav>
+          </div>
         </div>
 
-        <div className="flex gap-4 mt-4">
-          <a href="#" className="p-2 border rounded-full hover:bg-accent hover:text-accent-foreground transition-colors">
-            <Instagram className="h-5 w-5" />
-          </a>
-          <a href="mailto:contact@monicaesguevaart.com" className="p-2 border rounded-full hover:bg-accent hover:text-accent-foreground transition-colors">
-            <Mail className="h-5 w-5" />
-          </a>
-        </div>
-
-        <div className="text-xs opacity-60 mt-8">
-          &copy; {new Date().getFullYear()} Monica Esgueva. All rights reserved.
+        <div className="text-muted-foreground mt-12 flex flex-col items-center justify-between gap-4 border-t border-neutral-200 pt-8 text-xs tracking-wider uppercase md:flex-row dark:border-neutral-800">
+          <p>&copy; {currentYear} Monica Esgueva. All rights reserved.</p>
+          <p>Designed with Intent</p>
         </div>
       </div>
     </footer>

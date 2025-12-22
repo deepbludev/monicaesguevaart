@@ -15,7 +15,11 @@ import { notFound } from 'next/navigation'
 
 const prisma = new PrismaClient()
 
-export default async function PaintingsPage({ params }: { params: { id: string } }) {
+export default async function PaintingsPage({
+  params,
+}: {
+  params: { id: string }
+}) {
   const collection = await prisma.collection.findUnique({
     where: { id: params.id },
   })
@@ -30,12 +34,12 @@ export default async function PaintingsPage({ params }: { params: { id: string }
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-             <Button variant="outline" size="icon" asChild>
-                <Link href="/admin/collections">
-                    <ArrowLeft className="h-4 w-4" />
-                </Link>
-             </Button>
-            <h1 className="text-3xl font-bold">Paintings: {collection.title}</h1>
+          <Button variant="outline" size="icon" asChild>
+            <Link href="/admin/collections">
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+          </Button>
+          <h1 className="text-3xl font-bold">Paintings: {collection.title}</h1>
         </div>
         <Button asChild>
           <Link href={`/admin/collections/${collection.id}/paintings/new`}>
@@ -62,32 +66,52 @@ export default async function PaintingsPage({ params }: { params: { id: string }
               <TableRow key={painting.id}>
                 <TableCell>{painting.order}</TableCell>
                 <TableCell>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={painting.imageUrl} alt={painting.title} className="h-10 w-10 object-cover rounded" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={painting.imageUrl}
+                    alt={painting.title}
+                    className="h-10 w-10 rounded object-cover"
+                  />
                 </TableCell>
                 <TableCell className="font-medium">{painting.title}</TableCell>
                 <TableCell>{painting.size}</TableCell>
                 <TableCell>{painting.available ? 'Yes' : 'No'}</TableCell>
-                <TableCell className="text-right space-x-2">
+                <TableCell className="space-x-2 text-right">
                   <Button variant="ghost" size="icon" asChild>
-                    <Link href={`/admin/collections/${collection.id}/paintings/${painting.id}/edit`}>
+                    <Link
+                      href={`/admin/collections/${collection.id}/paintings/${painting.id}/edit`}
+                    >
                       <Edit className="h-4 w-4" />
                     </Link>
                   </Button>
-                  <form action={deletePainting.bind(null, collection.id, painting.id)} className="inline">
-                    <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-600">
+                  <form
+                    action={deletePainting.bind(
+                      null,
+                      collection.id,
+                      painting.id,
+                    )}
+                    className="inline"
+                  >
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-red-500 hover:text-red-600"
+                    >
                       <Trash className="h-4 w-4" />
                     </Button>
                   </form>
                 </TableCell>
               </TableRow>
             ))}
-             {paintings.length === 0 && (
-                <TableRow>
-                    <TableCell colSpan={6} className="text-center h-24 text-muted-foreground">
-                        No paintings found.
-                    </TableCell>
-                </TableRow>
+            {paintings.length === 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={6}
+                  className="text-muted-foreground h-24 text-center"
+                >
+                  No paintings found.
+                </TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>

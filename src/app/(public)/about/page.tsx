@@ -1,39 +1,123 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+
 export default function AboutPage() {
-    return (
-      <div className="bg-background min-h-screen pb-24">
-          <section className="pt-32 pb-16 px-6 text-center">
-              <h1 className="text-4xl md:text-5xl font-serif text-primary mb-8">A Note From My Soul to Yours</h1>
-              <div className="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed font-light text-muted-foreground">
-                  <p className="italic text-xl text-foreground">“Some truths cannot be spoken — only remembered.</p>
-                  <p>Truths that live not in the mind but in the quiet, luminous chambers of the heart. My work is born from that place.</p>
-                  <p>For years, I tried to fit into the art world’s expectations. But the paintings themselves refused to stay small. They whispered. They vibrated. They asked to be seen for what they truly are: Codes. Transmissions. Portals of light.</p>
-                  <p>I paint when the veil thins. I paint when the guidance is clear. To stand before one of these works is to feel an activation.</p>
-                  <p>This is not art for decoration. Is it art for transformation.</p>
-                  <p>My mission is simple: to offer visual gateways that help you return to your highest expression — fully awake, fully embodied, fully aligned with your soul.”</p>
-                  <p className="font-serif text-2xl pt-4 text-primary">Mónica Esgueva</p>
+  return (
+    <main className="min-h-screen bg-neutral-50 pt-20 dark:bg-neutral-900">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden py-20 md:py-32">
+        <div className="relative z-10 container mx-auto px-6">
+          <div className="mx-auto max-w-4xl space-y-8 text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-foreground font-serif text-5xl md:text-7xl"
+            >
+              The Artist
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="bg-primary mx-auto h-1 w-24"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Bio Section */}
+      <section className="bg-background py-12 md:py-24">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 items-center gap-16 md:grid-cols-2">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative aspect-[3/4] overflow-hidden rounded-sm md:aspect-square"
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage:
+                    'url(https://placehold.co/800x800/222/fff?text=Monica)',
+                }}
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
+            >
+              <h2 className="font-serif text-3xl md:text-4xl">
+                Monica Esgueva
+              </h2>
+              <div className="text-muted-foreground space-y-6 text-lg leading-relaxed font-light">
+                <p>
+                  Monica Esgueva is a celebrated spiritual teacher, author, and
+                  visionary artist whose work serves as a bridge between the
+                  physical and the ethereal. Her art is not merely an aesthetic
+                  expression but a channeled transmission of high-frequency
+                  energy.
+                </p>
+                <p>
+                  With a background in deep meditative practices and a life
+                  dedicated to the expansion of consciousness, Monica channels
+                  codes of light onto the canvas. Each piece is birthed from a
+                  state of no-mind, allowing the intelligence of the universe to
+                  flow through her hands.
+                </p>
+                <p>
+                  These paintings are portals—designed to bypass the analytical
+                  mind and speak directly to the soul, activating dormant
+                  memories and facilitating a return to one's true essence.
+                </p>
               </div>
-          </section>
-          
-          <section className="bg-secondary/20 py-24">
-              <div className="container mx-auto px-6 max-w-4xl grid md:grid-cols-2 gap-12 items-center">
-                   <div className="relative aspect-[3/4] bg-gray-300 rounded-lg">
-                       {/* Artist Image */}
-                       <div className="absolute inset-0 bg-[url('https://placehold.co/600x800/222222/FFFFFF/png?text=Monica')] bg-cover bg-center rounded-lg" />
-                   </div>
-                   <div className="space-y-6">
-                       <h2 className="text-3xl font-serif">About Mónica</h2>
-                       <p className="leading-relaxed opacity-90">
-                           Mónica Esgueva is a visionary artist and spiritual teacher whose life has been shaped by profound inner awareness since childhood.
-                       </p>
-                       <p className="leading-relaxed opacity-90">
-                           Guided by an early knowing that her path belonged to the inner worlds, Mónica trained for many years with Tibetan lamas in India and Nepal, studied the nature of mind with recognized masters, and immersed herself in Eastern and Western traditions.
-                       </p>
-                       <p className="leading-relaxed opacity-90">
-                           Each painting carries an intention: to activate dormant memory, elevate perception, and support the soul’s ascent into higher dimensions of awareness.
-                       </p>
-                   </div>
-              </div>
-          </section>
-      </div>
-    )
-  }
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Philosophy Section */}
+      <section className="relative overflow-hidden bg-neutral-900 py-24 text-neutral-100">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-transparent opacity-10" />
+
+        <div className="relative z-10 container mx-auto max-w-3xl space-y-12 px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="mb-8 font-serif text-4xl">Philosophy</h2>
+            <p className="text-xl leading-relaxed font-light italic md:text-2xl">
+              &quot;True art does not explain; it reveals. It is an invitation
+              to step beyond the known and experience the vastness of who we
+              truly are.&quot;
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 text-center">
+        <div className="container mx-auto px-6">
+          <h2 className="mb-8 font-serif text-3xl">Connect with the Work</h2>
+          <Button
+            asChild
+            size="lg"
+            className="px-8 py-6 text-xs tracking-widest uppercase"
+          >
+            <Link href="/collections">View Collections</Link>
+          </Button>
+        </div>
+      </section>
+    </main>
+  )
+}
