@@ -1,0 +1,18 @@
+import { PaintingForm } from '@/components/painting-form'
+import { getPainting } from '@/actions/paintings'
+import { notFound } from 'next/navigation'
+
+export default async function EditPaintingPage({ params }: { params: { id: string, paintingId: string } }) {
+  const painting = await getPainting(params.paintingId)
+
+  if (!painting) {
+    notFound()
+  }
+
+  return (
+    <div className="max-w-2xl mx-auto">
+        <h1 className="text-2xl font-bold mb-6">Edit Painting</h1>
+      <PaintingForm collectionId={params.id} painting={painting} />
+    </div>
+  )
+}

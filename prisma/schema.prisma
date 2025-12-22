@@ -1,0 +1,43 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Admin {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String // Hashed
+}
+
+model Collection {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  description String
+  tagline     String?
+  imageUrl    String?
+  order       Int        @default(0)
+  paintings   Painting[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Painting {
+  id           String     @id @default(cuid())
+  title        String
+  description  String?
+  medium       String?
+  size         String?
+  year         String?
+  imageUrl     String
+  collectionId String
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  available    Boolean    @default(true)
+  order        Int        @default(0)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
