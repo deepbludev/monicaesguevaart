@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 import { decrypt } from '@/lib/session'
 import { cookies } from 'next/headers'
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const protectedRoutes = ['/admin']
   const publicRoutes = ['/admin/login']
   const path = request.nextUrl.pathname
