@@ -59,6 +59,18 @@ export function CollectionForm({ collection }: { collection?: Collection }) {
           </div>
 
           <div className="space-y-2">
+            <Label htmlFor="imageUrl">Image URL</Label>
+            <Input
+              id="imageUrl"
+              name="imageUrl"
+              defaultValue={collection?.imageUrl || ''}
+            />
+            {state?.errors?.imageUrl && (
+              <p className="text-sm text-red-500">{state.errors.imageUrl}</p> // @ts-ignore
+            )}
+          </div>
+
+          <div className="space-y-2">
             <Label htmlFor="order">Order</Label>
             <Input
               id="order"

@@ -12,6 +12,7 @@ const collectionSchema = z.object({
   slug: z.string().min(1),
   description: z.string().min(1),
   tagline: z.string().optional(),
+  imageUrl: z.string().optional(),
   order: z.number().int().optional().default(0),
 })
 

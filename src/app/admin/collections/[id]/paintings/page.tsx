@@ -18,17 +18,18 @@ const prisma = new PrismaClient()
 export default async function PaintingsPage({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
+  const { id } = await params
   const collection = await prisma.collection.findUnique({
-    where: { id: params.id },
+    where: { id },
   })
 
   if (!collection) {
     notFound()
   }
 
-  const paintings = await getPaintings(params.id)
+  const paintings = await getPaintings(id)
 
   return (
     <div className="space-y-6">

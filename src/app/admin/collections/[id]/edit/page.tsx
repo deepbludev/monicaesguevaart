@@ -7,10 +7,11 @@ const prisma = new PrismaClient()
 export default async function EditCollectionPage({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
+  const { id } = await params
   const collection = await prisma.collection.findUnique({
-    where: { id: params.id },
+    where: { id },
   })
 
   if (!collection) {
