@@ -4,12 +4,13 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { logout } from '@/actions/auth'
 import { Button } from '@/components/ui/button'
-import { LayoutDashboard, Images, LogOut } from 'lucide-react'
+import { LayoutDashboard, Images, Palette, LogOut } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const links = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/collections', label: 'Collections', icon: Images },
+  { href: '/admin/paintings', label: 'Paintings', icon: Palette },
 ]
 
 export function AdminSidebar() {
