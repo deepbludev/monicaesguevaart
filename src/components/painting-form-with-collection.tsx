@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useActionState } from 'react'
 import { createPaintingStandalone } from '@/actions/paintings'
 import { Button } from '@/components/ui/button'
@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/select'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import Image from 'next/image'
 
 interface Collection {
   id: string
@@ -32,9 +33,45 @@ export function PaintingFormWithCollection({
     collections[0]?.id || '',
   )
   const [showCollectionError, setShowCollectionError] = useState(false)
+  const [preview, setPreview] = useState<string | null>(null)
+  const [, setSelectedFile] = useState<File | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const action = createPaintingStandalone.bind(null, collectionId)
   const [state, formAction] = useActionState(action, undefined)
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+      if (!validTypes.includes(file.type)) {
+        alert(
+          'Invalid file type. Please upload a JPEG, PNG, WebP, or GIF image.',
+        )
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''
+        }
+        return
+      }
+
+      // Validate file size (10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        alert('File size exceeds 10MB limit.')
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''
+        }
+        return
+      }
+
+      setSelectedFile(file)
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setPreview(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
 
   return (
     <Card>
@@ -49,7 +86,11 @@ export function PaintingFormWithCollection({
         </div>
       </CardHeader>
       <CardContent>
-        <form action={formAction} className="space-y-4">
+        <form
+          action={formAction}
+          className="space-y-4"
+          encType="multipart/form-data"
+        >
           <div className="space-y-2">
             <Label htmlFor="collection">Collection *</Label>
             <Select value={collectionId} onValueChange={setCollectionId}>
@@ -109,12 +150,42 @@ export function PaintingFormWithCollection({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="imageUrl">Image URL *</Label>
-            <Input id="imageUrl" name="imageUrl" required />
+            <Label htmlFor="image">Image *</Label>
+            <Input
+              ref={fileInputRef}
+              id="image"
+              name="image"
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              onChange={handleFileChange}
+              className="cursor-pointer"
+              required
+            />
+            <p className="text-muted-foreground text-sm">
+              Upload an image file (JPEG, PNG, WebP, or GIF, max 10MB)
+            </p>
             {state?.errors?.imageUrl && (
               <p className="text-sm text-red-500">{state.errors.imageUrl}</p>
             )}
           </div>
+
+          {/* Image Preview */}
+          {preview && (
+            <div className="space-y-2">
+              <Label>Preview</Label>
+              <div className="relative aspect-square w-full max-w-md overflow-hidden rounded-lg border">
+                <Image
+                  src={preview}
+                  alt="Preview"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Fallback: Image URL input (hidden but kept for backward compatibility) */}
+          <input type="hidden" name="imageUrl" value="" />
 
           <div className="flex items-center space-x-2">
             <input

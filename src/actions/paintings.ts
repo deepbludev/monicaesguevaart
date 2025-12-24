@@ -4,6 +4,7 @@ import { PrismaClient } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
+import { uploadImage, deleteImage } from '@/lib/blob'
 
 const prisma = new PrismaClient()
 
@@ -13,7 +14,7 @@ const paintingSchema = z.object({
   medium: z.string().optional(),
   size: z.string().optional(),
   year: z.string().optional(),
-  imageUrl: z.string().min(1),
+  imageUrl: z.string().min(1).optional(),
   available: z
     .string()
     .transform((val) => val === 'true')
@@ -28,10 +29,7 @@ export async function getPaintings(collectionId: string) {
   })
 }
 
-export async function getAllPaintings(
-  collectionId?: string,
-  search?: string,
-) {
+export async function getAllPaintings(collectionId?: string, search?: string) {
   const where: {
     collectionId?: string
     title?: { contains: string }
@@ -63,16 +61,47 @@ export async function createPainting(
 ) {
   const data = Object.fromEntries(formData)
   const available = data.available === 'on' || data.available === 'true'
+  const imageFile = formData.get('image') as File | null
+
+  let imageUrl = (data.imageUrl as string) || ''
+
+  // Handle file upload if present
+  if (imageFile && imageFile.size > 0) {
+    const timestamp = Date.now()
+    const filename = `paintings/${timestamp}-${imageFile.name}`
+    const uploadResult = await uploadImage(imageFile, filename)
+
+    if (uploadResult.error) {
+      return {
+        errors: { imageUrl: [uploadResult.error] },
+      }
+    }
+
+    imageUrl = uploadResult.url
+  }
+
+  // Validate that we have an image URL
+  if (!imageUrl) {
+    return {
+      errors: {
+        imageUrl: [
+          'Image is required. Please upload an image or provide an image URL.',
+        ],
+      },
+    }
+  }
 
   const parsed = paintingSchema
     .extend({
       available: z.boolean().default(true),
       order: z.coerce.number().default(0),
+      imageUrl: z.string().min(1),
     })
     .safeParse({
       ...data,
       available,
       order: data.order,
+      imageUrl,
     })
 
   if (!parsed.success) {
@@ -98,16 +127,47 @@ export async function createPaintingStandalone(
 ) {
   const data = Object.fromEntries(formData)
   const available = data.available === 'on' || data.available === 'true'
+  const imageFile = formData.get('image') as File | null
+
+  let imageUrl = (data.imageUrl as string) || ''
+
+  // Handle file upload if present
+  if (imageFile && imageFile.size > 0) {
+    const timestamp = Date.now()
+    const filename = `paintings/${timestamp}-${imageFile.name}`
+    const uploadResult = await uploadImage(imageFile, filename)
+
+    if (uploadResult.error) {
+      return {
+        errors: { imageUrl: [uploadResult.error] },
+      }
+    }
+
+    imageUrl = uploadResult.url
+  }
+
+  // Validate that we have an image URL
+  if (!imageUrl) {
+    return {
+      errors: {
+        imageUrl: [
+          'Image is required. Please upload an image or provide an image URL.',
+        ],
+      },
+    }
+  }
 
   const parsed = paintingSchema
     .extend({
       available: z.boolean().default(true),
       order: z.coerce.number().default(0),
+      imageUrl: z.string().min(1),
     })
     .safeParse({
       ...data,
       available,
       order: data.order,
+      imageUrl,
     })
 
   if (!parsed.success) {
@@ -134,16 +194,63 @@ export async function updatePainting(
 ) {
   const data = Object.fromEntries(formData)
   const available = data.available === 'on' || data.available === 'true'
+  const imageFile = formData.get('image') as File | null
+
+  // Get existing painting to check for old image URL
+  const existingPainting = await prisma.painting.findUnique({
+    where: { id: paintingId },
+  })
+
+  let imageUrl = existingPainting?.imageUrl || ''
+
+  // Handle file upload if present
+  if (imageFile && imageFile.size > 0) {
+    const timestamp = Date.now()
+    const filename = `paintings/${paintingId}-${timestamp}-${imageFile.name}`
+    const uploadResult = await uploadImage(imageFile, filename)
+
+    if (uploadResult.error) {
+      return {
+        errors: { imageUrl: [uploadResult.error] },
+      }
+    }
+
+    imageUrl = uploadResult.url
+
+    // Delete old blob if it exists and is a Vercel Blob URL
+    if (existingPainting?.imageUrl) {
+      await deleteImage(existingPainting.imageUrl)
+    }
+  } else {
+    // No file uploaded, check if imageUrl was provided in form (fallback for URL input)
+    const providedImageUrl = (data.imageUrl as string)?.trim() || ''
+    if (providedImageUrl) {
+      imageUrl = providedImageUrl
+    }
+  }
+
+  // Validate that we have an image URL
+  if (!imageUrl) {
+    return {
+      errors: {
+        imageUrl: [
+          'Image is required. Please upload an image or provide an image URL.',
+        ],
+      },
+    }
+  }
 
   const parsed = paintingSchema
     .extend({
       available: z.boolean().default(true),
       order: z.coerce.number().default(0),
+      imageUrl: z.string().min(1),
     })
     .safeParse({
       ...data,
       available,
       order: data.order,
+      imageUrl,
     })
 
   if (!parsed.success) {
@@ -168,16 +275,63 @@ export async function updatePaintingStandalone(
 ) {
   const data = Object.fromEntries(formData)
   const available = data.available === 'on' || data.available === 'true'
+  const imageFile = formData.get('image') as File | null
+
+  // Get existing painting to check for old image URL
+  const existingPainting = await prisma.painting.findUnique({
+    where: { id: paintingId },
+  })
+
+  let imageUrl = existingPainting?.imageUrl || ''
+
+  // Handle file upload if present
+  if (imageFile && imageFile.size > 0) {
+    const timestamp = Date.now()
+    const filename = `paintings/${paintingId}-${timestamp}-${imageFile.name}`
+    const uploadResult = await uploadImage(imageFile, filename)
+
+    if (uploadResult.error) {
+      return {
+        errors: { imageUrl: [uploadResult.error] },
+      }
+    }
+
+    imageUrl = uploadResult.url
+
+    // Delete old blob if it exists and is a Vercel Blob URL
+    if (existingPainting?.imageUrl) {
+      await deleteImage(existingPainting.imageUrl)
+    }
+  } else {
+    // No file uploaded, check if imageUrl was provided in form (fallback for URL input)
+    const providedImageUrl = (data.imageUrl as string)?.trim() || ''
+    if (providedImageUrl) {
+      imageUrl = providedImageUrl
+    }
+  }
+
+  // Validate that we have an image URL
+  if (!imageUrl) {
+    return {
+      errors: {
+        imageUrl: [
+          'Image is required. Please upload an image or provide an image URL.',
+        ],
+      },
+    }
+  }
 
   const parsed = paintingSchema
     .extend({
       available: z.boolean().default(true),
       order: z.coerce.number().default(0),
+      imageUrl: z.string().min(1),
     })
     .safeParse({
       ...data,
       available,
       order: data.order,
+      imageUrl,
     })
 
   if (!parsed.success) {
