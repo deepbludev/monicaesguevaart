@@ -4,15 +4,25 @@ import bcrypt from 'bcryptjs'
 const prisma = new PrismaClient()
 
 async function main() {
-  const email = 'admin@monicaesguevaart.com'
-  const password = await bcrypt.hash('password123', 10)
+  const email = process.env.ADMIN_EMAIL
+  const password = process.env.ADMIN_PASSWORD
+
+  if (!email) {
+    throw new Error('ADMIN_EMAIL environment variable is required')
+  }
+
+  if (!password) {
+    throw new Error('ADMIN_PASSWORD environment variable is required')
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10)
 
   const admin = await prisma.admin.upsert({
     where: { email },
     update: {},
     create: {
       email,
-      password,
+      password: hashedPassword,
     },
   })
   console.log({ admin })
