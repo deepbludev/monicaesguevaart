@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { Painting } from '@prisma/client'
 import Image from 'next/image'
 
@@ -25,11 +25,15 @@ interface Collection {
   title: string
 }
 
+type PaintingWithCollection = Painting & {
+  collection?: { slug: string }
+}
+
 export function PaintingFormEditWithCollection({
   painting,
   collections,
 }: {
-  painting: Painting
+  painting: PaintingWithCollection
   collections: Collection[]
 }) {
   const [collectionId, setCollectionId] = useState<string>(
@@ -78,13 +82,27 @@ export function PaintingFormEditWithCollection({
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center gap-4">
-          <Button variant="outline" size="icon" asChild>
-            <Link href="/admin/paintings">
-              <ArrowLeft className="h-4 w-4" />
-            </Link>
-          </Button>
-          <CardTitle>Edit Painting</CardTitle>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button variant="outline" size="icon" asChild>
+              <Link href="/admin/paintings">
+                <ArrowLeft className="h-4 w-4" />
+              </Link>
+            </Button>
+            <CardTitle>Edit Painting</CardTitle>
+          </div>
+          {painting.id && (
+            <Button variant="outline" size="sm" asChild>
+              <Link
+                href={`/paintings/${painting.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ExternalLink className="mr-2 h-4 w-4" />
+                View Public Page
+              </Link>
+            </Button>
+          )}
         </div>
       </CardHeader>
       <CardContent>

@@ -8,9 +8,10 @@ import { ArrowLeft } from 'lucide-react'
 export default async function CollectionDetailPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const collection = await getCollectionBySlug(params.slug)
+  const { slug } = await params
+  const collection = await getCollectionBySlug(slug)
 
   if (!collection) {
     notFound()
@@ -57,8 +58,11 @@ export default async function CollectionDetailPage({
       <section className="container mx-auto px-6">
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
           {collection.paintings.map((painting) => (
-            <div key={painting.id} className="space-y-6">
-              <div className="group relative aspect-4/5 cursor-pointer overflow-hidden rounded-lg bg-gray-100 shadow-sm transition-all duration-500 hover:shadow-xl">
+            <div key={painting.id} className="group space-y-6">
+              <Link
+                href={`/paintings/${painting.id}`}
+                className="block relative aspect-4/5 cursor-pointer overflow-hidden rounded-lg bg-gray-100 shadow-sm transition-all duration-500 hover:shadow-xl"
+              >
                 <Image
                   src={painting.imageUrl}
                   alt={painting.title}
@@ -66,12 +70,17 @@ export default async function CollectionDetailPage({
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10" />
-              </div>
+              </Link>
 
               <div className="space-y-1 text-center">
-                <h3 className="text-primary font-serif text-2xl">
-                  {painting.title}
-                </h3>
+                <Link
+                  href={`/paintings/${painting.id}`}
+                  className="block hover:text-primary transition-colors"
+                >
+                  <h3 className="text-primary font-serif text-2xl">
+                    {painting.title}
+                  </h3>
+                </Link>
                 <p className="text-muted-foreground text-sm font-light tracking-wide uppercase">
                   {painting.medium} {painting.size && `• ${painting.size}`}{' '}
                   {painting.year && `• ${painting.year}`}

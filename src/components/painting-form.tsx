@@ -9,15 +9,19 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Image from 'next/image'
+import Link from 'next/link'
+import { ExternalLink } from 'lucide-react'
 
 import { Painting } from '@prisma/client'
 
 export function PaintingForm({
   collectionId,
   painting,
+  paintingId,
 }: {
   collectionId: string
   painting?: Painting
+  paintingId?: string
 }) {
   const isEdit = !!painting
   const action = isEdit
@@ -67,7 +71,21 @@ export function PaintingForm({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{isEdit ? 'Edit Painting' : 'New Painting'}</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle>{isEdit ? 'Edit Painting' : 'New Painting'}</CardTitle>
+          {isEdit && paintingId && (
+            <Button variant="outline" size="sm" asChild>
+              <Link
+                href={`/paintings/${paintingId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ExternalLink className="mr-2 h-4 w-4" />
+                View Public Page
+              </Link>
+            </Button>
+          )}
+        </div>
       </CardHeader>
       <CardContent>
         <form

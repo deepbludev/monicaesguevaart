@@ -46,12 +46,15 @@ export async function getAllPaintings(collectionId?: string, search?: string) {
   return await prisma.painting.findMany({
     where: Object.keys(where).length > 0 ? where : undefined,
     orderBy: [{ collection: { order: 'asc' } }, { order: 'asc' }],
-    include: { collection: { select: { id: true, title: true } } },
+    include: { collection: { select: { id: true, title: true, slug: true } } },
   })
 }
 
 export async function getPainting(id: string) {
-  return await prisma.painting.findUnique({ where: { id } })
+  return await prisma.painting.findUnique({
+    where: { id },
+    include: { collection: { select: { id: true, title: true, slug: true } } },
+  })
 }
 
 export async function createPainting(

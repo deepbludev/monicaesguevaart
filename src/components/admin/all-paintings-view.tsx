@@ -2,7 +2,13 @@
 
 import { useState } from 'react'
 import { Painting, Collection } from '@prisma/client'
-import { LayoutGrid, List as ListIcon, Edit, Trash } from 'lucide-react'
+import {
+  LayoutGrid,
+  List as ListIcon,
+  Edit,
+  Trash,
+  ExternalLink,
+} from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import {
@@ -24,7 +30,7 @@ import { deletePainting } from '@/actions/paintings'
 import Image from 'next/image'
 
 type PaintingWithCollection = Painting & {
-  collection: Pick<Collection, 'id' | 'title'>
+  collection: Pick<Collection, 'id' | 'title' | 'slug'>
 }
 
 interface AllPaintingsViewProps {
@@ -174,7 +180,28 @@ function PaintingActions({
 }) {
   return (
     <div className="flex items-center justify-end gap-1">
-      <Button variant="ghost" size="icon" asChild className="h-8 w-8">
+      <Button
+        variant="ghost"
+        size="icon"
+        asChild
+        className="h-8 w-8"
+        title="View Public Page"
+      >
+        <Link
+          href={`/paintings/${paintingId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <ExternalLink className="h-4 w-4" />
+        </Link>
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        asChild
+        className="h-8 w-8"
+        title="Edit"
+      >
         <Link href={`/admin/paintings/${paintingId}/edit`}>
           <Edit className="h-4 w-4" />
         </Link>
@@ -187,6 +214,7 @@ function PaintingActions({
           variant="ghost"
           size="icon"
           className="text-destructive hover:text-destructive hover:bg-destructive/10 h-8 w-8"
+          title="Delete"
         >
           <Trash className="h-4 w-4" />
         </Button>
