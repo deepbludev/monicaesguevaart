@@ -66,7 +66,7 @@ export function CollectionForm({ collection }: { collection?: Collection }) {
               defaultValue={collection?.imageUrl || ''}
             />
             {state?.errors?.imageUrl && (
-              <p className="text-sm text-red-500">{state.errors.imageUrl}</p> // @ts-expect-error
+              <p className="text-sm text-red-500">{state.errors.imageUrl}</p>
             )}
           </div>
 
