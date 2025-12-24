@@ -1,12 +1,12 @@
 import { getCollections } from '@/actions/collections'
-import { PaintingFormWithCollection } from '@/components/painting-form-with-collection'
+import { PaintingForm } from '@/components/painting-form'
 
 export default async function NewPaintingPage() {
   const collections = await getCollections()
 
   return (
     <div className="mx-auto max-w-2xl">
-      <PaintingFormWithCollection collections={collections} />
+      <PaintingForm collections={collections} />
     </div>
   )
 }

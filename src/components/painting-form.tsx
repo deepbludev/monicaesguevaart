@@ -8,25 +8,63 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ExternalLink } from 'lucide-react'
+import { ExternalLink, ArrowLeft } from 'lucide-react'
 
 import { Painting } from '@prisma/client'
 
+interface Collection {
+  id: string
+  title: string
+}
+
+type PaintingWithCollection = Painting & {
+  collection?: { slug: string }
+}
+
 export function PaintingForm({
-  collectionId,
+  collectionId: initialCollectionId,
   painting,
   paintingId,
+  collections,
 }: {
-  collectionId: string
-  painting?: Painting
+  collectionId?: string
+  painting?: PaintingWithCollection
   paintingId?: string
+  collections?: Collection[]
 }) {
   const isEdit = !!painting
+  const showCollectionSelector = !!collections
+  const [collectionId, setCollectionId] = useState<string>(
+    initialCollectionId || painting?.collectionId || collections?.[0]?.id || '',
+  )
+  const [showCollectionError, setShowCollectionError] = useState(false)
+
+  // Determine redirect destination based on whether collections prop is provided
+  const redirectTo = showCollectionSelector ? 'paintings' : 'collection'
+
+  // Create wrapper functions to handle redirectTo parameter
   const action = isEdit
-    ? updatePainting.bind(null, collectionId, painting.id)
-    : createPainting.bind(null, collectionId)
+    ? async (prevState: unknown, formData: FormData) => {
+        return updatePainting(
+          painting.id,
+          collectionId,
+          prevState,
+          formData,
+          redirectTo,
+        )
+      }
+    : async (prevState: unknown, formData: FormData) => {
+        return createPainting(collectionId, prevState, formData, redirectTo)
+      }
 
   const [state, formAction] = useActionState(action, undefined)
   const [preview, setPreview] = useState<string | null>(
@@ -72,7 +110,16 @@ export function PaintingForm({
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>{isEdit ? 'Edit Painting' : 'New Painting'}</CardTitle>
+          <div className="flex items-center gap-4">
+            {showCollectionSelector && (
+              <Button variant="outline" size="icon" asChild>
+                <Link href="/admin/paintings">
+                  <ArrowLeft className="h-4 w-4" />
+                </Link>
+              </Button>
+            )}
+            <CardTitle>{isEdit ? 'Edit Painting' : 'New Painting'}</CardTitle>
+          </div>
           {isEdit && paintingId && (
             <Button variant="outline" size="sm" asChild>
               <Link
@@ -93,8 +140,31 @@ export function PaintingForm({
           className="space-y-4"
           encType="multipart/form-data"
         >
+          {showCollectionSelector && (
+            <div className="space-y-2">
+              <Label htmlFor="collection">Collection *</Label>
+              <Select value={collectionId} onValueChange={setCollectionId}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a collection" />
+                </SelectTrigger>
+                <SelectContent>
+                  {collections?.map((collection) => (
+                    <SelectItem key={collection.id} value={collection.id}>
+                      {collection.title}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {showCollectionError && !collectionId && (
+                <p className="text-sm text-red-500">
+                  Please select a collection
+                </p>
+              )}
+            </div>
+          )}
+
           <div className="space-y-2">
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title">Title *</Label>
             <Input
               id="title"
               name="title"
@@ -208,7 +278,17 @@ export function PaintingForm({
           </div>
 
           <div className="flex justify-end gap-2">
-            <Button type="submit">{isEdit ? 'Update' : 'Create'}</Button>
+            <Button
+              type="submit"
+              onClick={(e) => {
+                if (showCollectionSelector && !collectionId) {
+                  e.preventDefault()
+                  setShowCollectionError(true)
+                }
+              }}
+            >
+              {isEdit ? 'Update' : 'Create'}
+            </Button>
           </div>
         </form>
       </CardContent>

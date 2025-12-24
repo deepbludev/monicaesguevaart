@@ -1,7 +1,7 @@
 import { getPainting } from '@/actions/paintings'
 import { getCollections } from '@/actions/collections'
 import { notFound } from 'next/navigation'
-import { PaintingFormEditWithCollection } from '@/components/painting-form-edit-with-collection'
+import { PaintingForm } from '@/components/painting-form'
 
 export default async function EditPaintingPage({
   params,
@@ -18,8 +18,9 @@ export default async function EditPaintingPage({
 
   return (
     <div className="mx-auto max-w-2xl">
-      <PaintingFormEditWithCollection
+      <PaintingForm
         painting={painting}
+        paintingId={painting.id}
         collections={collections}
       />
     </div>
