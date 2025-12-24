@@ -31,7 +31,7 @@ export function Navbar() {
             alt="Mónica Esgueva Art"
             width={200}
             height={60}
-            className="h-auto w-auto max-h-12 object-contain"
+            className="h-auto max-h-12 w-auto object-contain"
             priority
           />
         </Link>

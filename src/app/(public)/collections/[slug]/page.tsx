@@ -1,6 +1,7 @@
 import { getCollectionBySlug } from '@/actions/collections'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 
@@ -57,14 +58,12 @@ export default async function CollectionDetailPage({
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
           {collection.paintings.map((painting) => (
             <div key={painting.id} className="space-y-6">
-              <div className="group relative aspect-[4/5] cursor-pointer overflow-hidden rounded-lg bg-gray-100 shadow-sm transition-all duration-500 hover:shadow-xl">
-                &quot;I paint to capture the light, the movement, and the
-                feeling of a moment.&quot;{' '}
-                {/* This was likely intended as a comment or string, but the instruction provided it as raw text. */}
-                <img
+              <div className="group relative aspect-4/5 cursor-pointer overflow-hidden rounded-lg bg-gray-100 shadow-sm transition-all duration-500 hover:shadow-xl">
+                <Image
                   src={painting.imageUrl}
                   alt={painting.title}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10" />
               </div>

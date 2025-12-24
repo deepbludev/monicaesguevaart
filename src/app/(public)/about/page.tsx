@@ -77,7 +77,7 @@ export default function AboutPage() {
                 <p>
                   These paintings are portals—designed to bypass the analytical
                   mind and speak directly to the soul, activating dormant
-                  memories and facilitating a return to one's true essence.
+                  memories and facilitating a return to one&apos;s true essence.
                 </p>
               </div>
             </motion.div>

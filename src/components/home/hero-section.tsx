@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 
@@ -8,13 +9,15 @@ export function HeroSection() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            'url(https://placehold.co/1920x1080/1a1a1a/ffffff/png?text=Monica+Esgueva+Art)',
-        }}
-      >
+      <div className="absolute inset-0">
+        <Image
+          src="/hero.jpg"
+          alt="Monica Esgueva Art"
+          fill
+          priority
+          className="object-cover"
+          quality={90}
+        />
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
@@ -52,7 +55,7 @@ export function HeroSection() {
         transition={{ delay: 1, duration: 1 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <div className="h-16 w-[1px] overflow-hidden bg-white/50">
+        <div className="h-16 w-px overflow-hidden bg-white/50">
           <div className="animate-pulldown h-full w-full origin-top bg-white" />
         </div>
       </motion.div>

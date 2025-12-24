@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Instagram, Mail } from 'lucide-react'
 
 export function Footer() {
@@ -10,15 +11,18 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           {/* Brand */}
           <div className="space-y-6 md:col-span-2">
-            <Link
-              href="/"
-              className="block font-serif text-2xl tracking-widest uppercase"
-            >
-              Monica Esgueva
+            <Link href="/" className="block">
+              <Image
+                src="/meart-logo-1200px.png"
+                alt="Mónica Esgueva Art"
+                width={250}
+                height={75}
+                className="h-auto max-h-16 w-auto object-contain"
+              />
             </Link>
             <p className="text-muted-foreground max-w-sm font-light">
               Sacred art that serves as a portal to higher dimensions. Helping
-              you reconnect with your soul's essence.
+              you reconnect with your &apos;s essence.
             </p>
           </div>
 
@@ -58,7 +62,7 @@ export function Footer() {
             <h4 className="font-serif text-lg">Connect</h4>
             <nav className="text-muted-foreground flex flex-col gap-2 text-sm">
               <a
-                href="https://instagram.com"
+                href="https://instagram.com/monicaesguevaart"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary flex items-center gap-2 transition-colors"
