@@ -13,7 +13,7 @@ export function Footer() {
           <div className="space-y-6 md:col-span-2">
             <Link href="/" className="block">
               <Image
-                src="/meart-logo-1200px.png"
+                src="/meart-logo.png"
                 alt="Mónica Esgueva Art"
                 width={250}
                 height={75}
