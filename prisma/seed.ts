@@ -17,6 +17,14 @@ async function main() {
   })
   console.log({ admin })
 
+  // Clear existing paintings (optional - comment out if you want to keep existing)
+  await prisma.painting.deleteMany({})
+  console.log('Cleared existing paintings')
+
+  // Clear existing paintings (optional - comment out if you want to keep existing)
+  await prisma.collection.deleteMany({})
+  console.log('Cleared existing collections')
+
   const collections = [
     {
       title: 'Portals',
@@ -328,10 +336,6 @@ async function main() {
       ],
     },
   ]
-
-  // Clear existing paintings (optional - comment out if you want to keep existing)
-  await prisma.painting.deleteMany({})
-  console.log('Cleared existing paintings')
 
   // Create paintings for each collection
   for (const collectionPaintings of paintings) {
