@@ -1,10 +1,10 @@
-import { Inter, Playfair_Display } from 'next/font/google'
+import { PT_Serif } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const playfair = Playfair_Display({
+const ptSerif = PT_Serif({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  weight: ['400', '700'],
+  variable: '--font-pt-serif',
 })
 
 export const metadata = {
@@ -19,9 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${playfair.variable} font-sans`}>
-        {children}
-      </body>
+      <body className={`${ptSerif.variable} font-sans`}>{children}</body>
     </html>
   )
 }
