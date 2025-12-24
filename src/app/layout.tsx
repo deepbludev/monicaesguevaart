@@ -8,8 +8,11 @@ const ptSerif = PT_Serif({
 })
 
 export const metadata = {
-  title: 'Monica Esgueva | Artist',
+  title: 'Monica Esgueva | Awakening Art',
   description: 'Sacred art for the awakened soul',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
