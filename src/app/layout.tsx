@@ -1,5 +1,6 @@
 import { PT_Serif } from 'next/font/google'
 import './globals.css'
+import { Metadata } from 'next/types'
 
 const ptSerif = PT_Serif({
   subsets: ['latin'],
@@ -7,7 +8,7 @@ const ptSerif = PT_Serif({
   variable: '--font-pt-serif',
 })
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Monica Esgueva | Awakening Art',
   description: 'Sacred art for the awakened soul',
   icons: {

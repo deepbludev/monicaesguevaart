@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import bcrypt from 'bcryptjs'
+import { ensureAdminExists } from '../src/lib/admin'
 
 const prisma = new PrismaClient()
 
@@ -15,17 +15,11 @@ async function main() {
     throw new Error('ADMIN_PASSWORD environment variable is required')
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10)
-
-  const admin = await prisma.admin.upsert({
-    where: { email },
-    update: {},
-    create: {
-      email,
-      password: hashedPassword,
-    },
-  })
-  console.log({ admin })
+  const result = await ensureAdminExists(email, password)
+  if (!result.success) {
+    throw new Error(result.message)
+  }
+  console.log({ admin: result.admin })
 
   // Clear existing paintings (optional - comment out if you want to keep existing)
   await prisma.painting.deleteMany({})
