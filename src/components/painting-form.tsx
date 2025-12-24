@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import { useActionState } from 'react'
 import { createPainting, updatePainting } from '@/actions/paintings'
+import { ALLOWED_TYPES } from '@/lib/blob'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -77,8 +78,7 @@ export function PaintingForm({
     const file = e.target.files?.[0]
     if (file) {
       // Validate file type
-      const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
-      if (!validTypes.includes(file.type)) {
+      if (!ALLOWED_TYPES.includes(file.type)) {
         alert(
           'Invalid file type. Please upload a JPEG, PNG, WebP, or GIF image.',
         )

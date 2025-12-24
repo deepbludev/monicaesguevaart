@@ -219,6 +219,32 @@ export async function updatePainting(
   }
 }
 
+export async function togglePaintingAvailable(
+  formData: FormData,
+): Promise<void> {
+  const paintingId = formData.get('paintingId') as string
+
+  if (!paintingId) {
+    return
+  }
+
+  const painting = await prisma.painting.findUnique({
+    where: { id: paintingId },
+  })
+
+  if (!painting) {
+    return
+  }
+
+  await prisma.painting.update({
+    where: { id: paintingId },
+    data: { available: !painting.available },
+  })
+
+  revalidatePath(`/admin/collections/${painting.collectionId}/paintings`)
+  revalidatePath('/admin/paintings')
+}
+
 export async function deletePainting(collectionId: string, paintingId: string) {
   await prisma.painting.delete({ where: { id: paintingId } })
   revalidatePath(`/admin/collections/${collectionId}/paintings`)

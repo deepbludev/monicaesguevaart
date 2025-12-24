@@ -26,7 +26,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { deletePainting } from '@/actions/paintings'
+import { deletePainting, togglePaintingAvailable } from '@/actions/paintings'
+import { Checkbox } from '@/components/ui/checkbox'
 import Image from 'next/image'
 
 type PaintingWithCollection = Painting & {
@@ -110,7 +111,26 @@ export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
                     </Link>
                   </TableCell>
                   <TableCell>{painting.size}</TableCell>
-                  <TableCell>{painting.available ? 'Yes' : 'No'}</TableCell>
+                  <TableCell>
+                    <form action={togglePaintingAvailable}>
+                      <input
+                        type="hidden"
+                        name="paintingId"
+                        value={painting.id}
+                      />
+                      <button
+                        type="submit"
+                        className="cursor-pointer"
+                        title={
+                          painting.available
+                            ? 'Mark as unavailable'
+                            : 'Mark as available'
+                        }
+                      >
+                        <Checkbox checked={painting.available} />
+                      </button>
+                    </form>
+                  </TableCell>
                   <TableCell className="text-right">
                     <PaintingActions
                       collectionId={painting.collectionId}
@@ -153,6 +173,27 @@ export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
                   {painting.collection.title}
                 </Link>
                 <p>{painting.size}</p>
+                <div className="mt-2 flex items-center gap-2">
+                  <form action={togglePaintingAvailable}>
+                    <input
+                      type="hidden"
+                      name="paintingId"
+                      value={painting.id}
+                    />
+                    <button
+                      type="submit"
+                      className="flex cursor-pointer items-center gap-2"
+                      title={
+                        painting.available
+                          ? 'Mark as unavailable'
+                          : 'Mark as available'
+                      }
+                    >
+                      <Checkbox checked={painting.available} />
+                      <span className="text-xs">Available</span>
+                    </button>
+                  </form>
+                </div>
               </CardContent>
               <CardFooter className="flex items-center justify-between p-4 pt-0">
                 <span className="text-muted-foreground text-xs">
