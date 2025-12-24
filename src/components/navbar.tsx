@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -24,11 +25,15 @@ export function Navbar() {
       )}
     >
       <div className="container mx-auto flex h-20 items-center justify-between px-6">
-        <Link
-          href="/"
-          className="font-serif text-2xl tracking-widest uppercase"
-        >
-          Monica Esgueva
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/meart-logo-1200px.png"
+            alt="Mónica Esgueva Art"
+            width={200}
+            height={60}
+            className="h-auto w-auto max-h-12 object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop Menu */}
