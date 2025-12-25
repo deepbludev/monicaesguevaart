@@ -155,3 +155,53 @@ export async function reorderCollections(orderedIds: string[]) {
     return { success: false, error: 'Failed to reorder collections' }
   }
 }
+
+export async function getDashboardStats() {
+  const [totalCount, recentCollections, topCollections, emptyCollections] =
+    await Promise.all([
+      prisma.collection.count(),
+      prisma.collection.findMany({
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          createdAt: true,
+        },
+      }),
+      prisma.collection.findMany({
+        orderBy: {
+          paintings: {
+            _count: 'desc',
+          },
+        },
+        take: 5,
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          _count: { select: { paintings: true } },
+        },
+      }),
+      prisma.collection.findMany({
+        where: {
+          paintings: {
+            none: {},
+          },
+        },
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+        },
+      }),
+    ])
+
+  return {
+    totalCount,
+    recentCollections,
+    topCollections,
+    emptyCollections,
+  }
+}

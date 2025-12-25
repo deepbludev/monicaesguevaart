@@ -312,3 +312,52 @@ export async function reorderPaintings(
     return { success: false, error: 'Failed to reorder paintings' }
   }
 }
+
+export async function getDashboardStats() {
+  const [
+    totalCount,
+    availableCount,
+    unavailableCount,
+    allPaintings,
+    recentPaintings,
+  ] = await Promise.all([
+    prisma.painting.count(),
+    prisma.painting.count({ where: { available: true } }),
+    prisma.painting.count({ where: { available: false } }),
+    prisma.painting.findMany({
+      select: { medium: true },
+    }),
+    prisma.painting.findMany({
+      take: 5,
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        title: true,
+        imageUrl: true,
+        createdAt: true,
+        collection: {
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+          },
+        },
+      },
+    }),
+  ])
+
+  // Calculate paintings per medium
+  const mediumBreakdown: Record<string, number> = {}
+  allPaintings.forEach((painting) => {
+    const medium = painting.medium || 'Unknown'
+    mediumBreakdown[medium] = (mediumBreakdown[medium] || 0) + 1
+  })
+
+  return {
+    totalCount,
+    availableCount,
+    unavailableCount,
+    mediumBreakdown,
+    recentPaintings,
+  }
+}
