@@ -40,11 +40,8 @@ export async function ensureAdminExists(
 
     const admin = await prisma.admin.upsert({
       where: { email },
-      update: {}, // Don't update password if admin exists (security)
-      create: {
-        email,
-        password: hashedPassword,
-      },
+      update: { email, password: hashedPassword },
+      create: { email, password: hashedPassword },
     })
 
     return {
