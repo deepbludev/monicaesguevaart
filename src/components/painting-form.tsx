@@ -5,6 +5,7 @@ import { useActionState } from 'react'
 import { createPainting, updatePainting } from '@/actions/paintings'
 import { ALLOWED_TYPES } from '@/lib/blob'
 import { MEDIUM_OPTIONS } from '@/lib/mediums'
+import { SIZE_OPTIONS } from '@/lib/sizes'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -50,6 +51,7 @@ export function PaintingForm({
   )
   const [showCollectionError, setShowCollectionError] = useState(false)
   const [medium, setMedium] = useState<string>(painting?.medium || '')
+  const [size, setSize] = useState<string>(painting?.size || '')
 
   // Determine redirect destination based on whether collections prop is provided
   const redirectTo = showCollectionSelector ? 'paintings' : 'collection'
@@ -207,11 +209,19 @@ export function PaintingForm({
             </div>
             <div className="space-y-2">
               <Label htmlFor="size">Size</Label>
-              <Input
-                id="size"
-                name="size"
-                defaultValue={painting?.size || ''}
-              />
+              <Select value={size} onValueChange={setSize}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a size" />
+                </SelectTrigger>
+                <SelectContent>
+                  {SIZE_OPTIONS.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <input type="hidden" name="size" value={size} />
             </div>
           </div>
 
