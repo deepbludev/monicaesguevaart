@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import { useActionState } from 'react'
 import { createPainting, updatePainting } from '@/actions/paintings'
 import { ALLOWED_TYPES } from '@/lib/blob'
+import { MEDIUM_OPTIONS } from '@/lib/mediums'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -48,6 +49,9 @@ export function PaintingForm({
     initialCollectionId || painting?.collectionId || collections?.[0]?.id || '',
   )
   const [showCollectionError, setShowCollectionError] = useState(false)
+  const [medium, setMedium] = useState<string>(
+    painting?.medium || '',
+  )
 
   // Determine redirect destination based on whether collections prop is provided
   const redirectTo = showCollectionSelector ? 'paintings' : 'collection'
@@ -189,11 +193,19 @@ export function PaintingForm({
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="medium">Medium</Label>
-              <Input
-                id="medium"
-                name="medium"
-                defaultValue={painting?.medium || ''}
-              />
+              <Select value={medium} onValueChange={setMedium}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a medium" />
+                </SelectTrigger>
+                <SelectContent>
+                  {MEDIUM_OPTIONS.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <input type="hidden" name="medium" value={medium} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="size">Size</Label>

@@ -37,9 +37,9 @@ type Collection = {
   slug: string
   description: string
   tagline?: string | null
-  imageUrl?: string | null
   order: number
   _count: { paintings: number }
+  paintings: { imageUrl: string }[]
 }
 
 interface SortableCollectionsGridProps {
@@ -65,19 +65,13 @@ function SortableCollectionCard({ collection }: { collection: Collection }) {
   return (
     <Card ref={setNodeRef} style={style} className="overflow-hidden">
       <div className="bg-muted relative aspect-3/4">
-        {collection.imageUrl ? (
-          <Image
-            src={collection.imageUrl}
-            alt={collection.title}
-            fill
-            className="object-cover transition-transform hover:scale-105"
-            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center bg-gray-200 text-gray-400">
-            No Image
-          </div>
-        )}
+        <Image
+          src={collection.paintings[0]?.imageUrl || '/meart-default.png'}
+          alt={collection.title}
+          fill
+          className="object-cover transition-transform hover:scale-105"
+          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+        />
         <div className="absolute top-2 left-2">
           <button
             {...attributes}

@@ -12,9 +12,9 @@ type Collection = {
   slug: string
   description: string
   tagline?: string | null
-  imageUrl?: string | null
   order: number
   _count: { paintings: number }
+  paintings: { imageUrl: string }[]
 }
 
 interface CollectionsViewProps {

@@ -38,10 +38,7 @@ export default async function CollectionsIndexPage() {
                 <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 shadow-sm">
                   <Image
                     src={
-                      collection.paintings[0]?.imageUrl ||
-                      collection.imageUrl ||
-                      'https://placehold.co/600x600/222222/FFFFFF/png?text=' +
-                        collection.title
+                      collection.paintings[0]?.imageUrl || '/meart-default.png'
                     }
                     alt={collection.title}
                     fill
@@ -56,6 +53,11 @@ export default async function CollectionsIndexPage() {
                   <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl">
                     {collection.title}
                   </h2>
+                  {(collection as { medium?: string | null }).medium && (
+                    <p className="text-muted-foreground text-sm">
+                      {(collection as { medium?: string | null }).medium}
+                    </p>
+                  )}
                   {collection.tagline && (
                     <p className="text-muted-foreground text-sm font-light italic md:text-base">
                       {collection.tagline}

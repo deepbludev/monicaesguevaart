@@ -1,11 +1,19 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useState, useActionState } from 'react'
 import { createCollection, updateCollection } from '@/actions/collections'
+import { MEDIUM_OPTIONS } from '@/lib/mediums'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
@@ -24,6 +32,7 @@ export function CollectionForm({ collection }: { collection?: Collection }) {
     ? updateCollection.bind(null, collection.id)
     : createCollection
   const [state, formAction] = useActionState(action, undefined)
+  const [medium, setMedium] = useState<string>(collection?.medium || '')
 
   return (
     <Card>
@@ -59,18 +68,6 @@ export function CollectionForm({ collection }: { collection?: Collection }) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="imageUrl">Image URL</Label>
-            <Input
-              id="imageUrl"
-              name="imageUrl"
-              defaultValue={collection?.imageUrl || ''}
-            />
-            {state?.errors?.imageUrl && (
-              <p className="text-sm text-red-500">{state.errors.imageUrl}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
             <Label htmlFor="order">Order</Label>
             <Input
               id="order"
@@ -91,6 +88,23 @@ export function CollectionForm({ collection }: { collection?: Collection }) {
               name="tagline"
               defaultValue={collection?.tagline || ''}
             />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="medium">Medium</Label>
+            <Select value={medium} onValueChange={setMedium}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a medium" />
+              </SelectTrigger>
+              <SelectContent>
+                {MEDIUM_OPTIONS.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <input type="hidden" name="medium" value={medium} />
           </div>
 
           <div className="space-y-2">

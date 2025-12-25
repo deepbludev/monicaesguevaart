@@ -20,7 +20,7 @@ model Collection {
   slug        String     @unique
   description String
   tagline     String?
-  imageUrl    String?
+  medium      String?
   order       Int        @default(0)
   paintings   Painting[]
   createdAt   DateTime   @default(now())

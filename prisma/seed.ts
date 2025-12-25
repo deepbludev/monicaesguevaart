@@ -36,6 +36,7 @@ async function main() {
       tagline: 'Thresholds to the Higher Worlds',
       description:
         'Gateways into realms of subtle perception, where higher guidance becomes tangible, and the soul begins to remember its origin.',
+      medium: 'Acrylic on canvas',
       order: 1,
     },
     {
@@ -44,6 +45,7 @@ async function main() {
       tagline: 'The Language of Flow',
       description:
         'A collection inspired by emotional alchemy, where fluid movement and color invite the heart to soften, release, and expand.',
+      medium: 'Acrylic on canvas',
       order: 2,
     },
     {
@@ -52,6 +54,7 @@ async function main() {
       tagline: 'Where Light Reveals the Invisible',
       description:
         'Landscapes not of Earth, but of consciousness — geographies of energy, stillness, and insight.',
+      medium: 'Acrylic on canvas',
       order: 3,
     },
     {
@@ -60,6 +63,7 @@ async function main() {
       tagline: 'Codes from the Infinite',
       description:
         'Visions arising from meditation and silence, offering frequencies that speak to the vast, eternal aspect of your being.',
+      medium: 'Acrylic on canvas',
       order: 4,
     },
     {
@@ -68,6 +72,7 @@ async function main() {
       tagline: 'Echoes from Other Lifetimes & Dimensions',
       description:
         'Paintings that reconnect you with timelines, wisdom, and identities your soul has carried across dimensions.',
+      medium: 'Acrylic on canvas',
       order: 5,
     },
     {
@@ -76,6 +81,7 @@ async function main() {
       tagline: 'Frequencies for the Awakening Path',
       description:
         'Painted in moments of profound connection, these pieces emit ascension codes that help activate 5D awareness — lifting your vibration, dissolving density, and aligning you with the next octave of your spiritual evolution.',
+      medium: 'Acrylic on canvas',
       order: 6,
     },
   ]
@@ -101,7 +107,7 @@ async function main() {
         {
           title: 'Gateway to Eternity',
           description: 'A luminous portal opening to higher dimensions',
-          medium: 'Acrylic on Canvas',
+          medium: 'Acrylic on canvas',
           size: '24" x 36"',
           year: '2024',
           imageUrl:
@@ -112,7 +118,7 @@ async function main() {
         {
           title: 'Threshold of Light',
           description: 'The moment between worlds, where transformation begins',
-          medium: 'Acrylic on Canvas',
+          medium: 'Acrylic on canvas',
           size: '30" x 40"',
           year: '2024',
           imageUrl:
@@ -123,7 +129,7 @@ async function main() {
         {
           title: 'Sacred Passage',
           description: 'A doorway to inner wisdom and divine connection',
-          medium: 'Mixed Media',
+          medium: 'Acrylic on canvas',
           size: '20" x 30"',
           year: '2023',
           imageUrl:
@@ -140,7 +146,7 @@ async function main() {
         {
           title: 'Flow of Emotions',
           description: 'The gentle movement of feelings through the heart',
-          medium: 'Watercolor on Paper',
+          medium: 'Acrylic on canvas',
           size: '18" x 24"',
           year: '2024',
           imageUrl:
@@ -151,7 +157,7 @@ async function main() {
         {
           title: 'Ocean of Release',
           description: 'Letting go into the vastness of emotional freedom',
-          medium: 'Acrylic on Canvas',
+          medium: 'Acrylic on canvas',
           size: '36" x 48"',
           year: '2024',
           imageUrl:
@@ -162,7 +168,7 @@ async function main() {
         {
           title: 'Liquid Light',
           description: 'Where water and light merge in perfect harmony',
-          medium: 'Mixed Media',
+          medium: 'Acrylic on canvas',
           size: '24" x 32"',
           year: '2023',
           imageUrl:
@@ -179,7 +185,7 @@ async function main() {
         {
           title: 'Dawn of Consciousness',
           description: 'The first light of awareness breaking through',
-          medium: 'Acrylic on Canvas',
+          medium: 'Acrylic on canvas',
           size: '30" x 40"',
           year: '2024',
           imageUrl:
@@ -190,7 +196,7 @@ async function main() {
         {
           title: 'Ethereal Landscape',
           description: 'A geography of pure energy and stillness',
-          medium: 'Oil on Canvas',
+          medium: 'Acrylic on canvas',
           size: '40" x 50"',
           year: '2024',
           imageUrl:
@@ -201,7 +207,7 @@ async function main() {
         {
           title: 'Mountain of Insight',
           description: 'Peaks of understanding rising from the depths',
-          medium: 'Acrylic on Canvas',
+          medium: 'Acrylic on canvas',
           size: '28" x 36"',
           year: '2023',
           imageUrl:
@@ -218,7 +224,7 @@ async function main() {
         {
           title: 'Cosmic Codes',
           description: 'Frequencies from the infinite speaking to the soul',
-          medium: 'Acrylic on Canvas',
+          medium: 'Acrylic on canvas',
           size: '36" x 48"',
           year: '2024',
           imageUrl:
@@ -229,7 +235,7 @@ async function main() {
         {
           title: 'Stellar Awakening',
           description: 'The moment when cosmic awareness dawns',
-          medium: 'Mixed Media',
+          medium: 'Acrylic on canvas',
           size: '32" x 40"',
           year: '2024',
           imageUrl:
@@ -240,7 +246,7 @@ async function main() {
         {
           title: 'Nebula of Silence',
           description: 'Visions from deep meditation and inner quiet',
-          medium: 'Acrylic on Canvas',
+          medium: 'Acrylic on canvas',
           size: '30" x 38"',
           year: '2023',
           imageUrl:
@@ -257,7 +263,7 @@ async function main() {
         {
           title: 'Ancient Echoes',
           description: 'Wisdom from lifetimes past resurfacing',
-          medium: 'Acrylic on Canvas',
+          medium: 'Acrylic on canvas',
           size: '28" x 36"',
           year: '2024',
           imageUrl:
@@ -268,7 +274,7 @@ async function main() {
         {
           title: 'Timeline Convergence',
           description: 'Where past and future meet in the present moment',
-          medium: 'Mixed Media',
+          medium: 'Acrylic on canvas',
           size: '36" x 44"',
           year: '2024',
           imageUrl:
@@ -279,7 +285,7 @@ async function main() {
         {
           title: 'Dimensional Memory',
           description: 'Recalling identities carried across dimensions',
-          medium: 'Acrylic on Canvas',
+          medium: 'Acrylic on canvas',
           size: '24" x 32"',
           year: '2023',
           imageUrl:
@@ -296,7 +302,7 @@ async function main() {
         {
           title: '5D Activation',
           description: 'Frequencies that activate higher dimensional awareness',
-          medium: 'Acrylic on Canvas',
+          medium: 'Acrylic on canvas',
           size: '40" x 50"',
           year: '2024',
           imageUrl:
@@ -307,7 +313,7 @@ async function main() {
         {
           title: 'Vibration Lift',
           description: 'Dissolving density and aligning with higher octaves',
-          medium: 'Mixed Media',
+          medium: 'Acrylic on canvas',
           size: '36" x 48"',
           year: '2024',
           imageUrl:
@@ -318,7 +324,7 @@ async function main() {
         {
           title: 'Evolution Code',
           description: 'Painted in moments of profound connection',
-          medium: 'Acrylic on Canvas',
+          medium: 'Acrylic on canvas',
           size: '32" x 40"',
           year: '2024',
           imageUrl:
@@ -329,7 +335,7 @@ async function main() {
         {
           title: 'Spiritual Awakening',
           description: 'The next octave of spiritual evolution',
-          medium: 'Acrylic on Canvas',
+          medium: 'Acrylic on canvas',
           size: '30" x 38"',
           year: '2023',
           imageUrl:

@@ -22,9 +22,7 @@ export default async function CollectionDetailPage({
         <div className="relative w-full">
           <Image
             src={
-              collection.imageUrl ||
-              'https://placehold.co/1920x1080/222222/FFFFFF/png?text=' +
-                collection.title
+              collection.paintings[0]?.imageUrl || '/meart-default.png'
             }
             alt={collection.title}
             width={1920}
@@ -46,6 +44,11 @@ export default async function CollectionDetailPage({
           <h1 className="font-serif text-4xl tracking-tight md:text-6xl lg:text-7xl">
             {collection.title}
           </h1>
+          {(collection as { medium?: string | null }).medium && (
+            <p className="text-muted-foreground text-sm">
+              {(collection as { medium?: string | null }).medium}
+            </p>
+          )}
           <div className="border-primary/30 mx-auto w-24 border-t" />
           <p className="mx-auto max-w-2xl text-base leading-relaxed font-light md:text-lg">
             {collection.description}
@@ -80,6 +83,11 @@ export default async function CollectionDetailPage({
                     {painting.title}
                   </h3>
                 </Link>
+                {painting.medium && (
+                  <p className="text-muted-foreground text-sm">
+                    {painting.medium}
+                  </p>
+                )}
                 {painting.size && (
                   <p className="text-muted-foreground text-sm">
                     {painting.size}
