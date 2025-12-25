@@ -16,4 +16,3 @@ export const SIZE_OPTIONS = [
 ] as const
 
 export type Size = (typeof SIZE_OPTIONS)[number]
-
