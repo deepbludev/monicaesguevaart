@@ -37,6 +37,7 @@ type Collection = {
   slug: string
   description: string
   tagline?: string | null
+  medium?: string | null
   order: number
   _count: { paintings: number }
   paintings: { imageUrl: string }[]
@@ -88,6 +89,9 @@ function SortableCollectionCard({ collection }: { collection: Collection }) {
         <CardTitle className="line-clamp-1 text-base">
           {collection.title}
         </CardTitle>
+        {collection.medium && (
+          <p className="text-muted-foreground text-xs">{collection.medium}</p>
+        )}
         {collection.tagline && (
           <p className="text-muted-foreground text-xs tracking-widest uppercase">
             {collection.tagline}

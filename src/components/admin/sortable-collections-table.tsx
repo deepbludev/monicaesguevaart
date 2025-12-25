@@ -35,6 +35,7 @@ type Collection = {
   id: string
   title: string
   slug: string
+  medium?: string | null
   order: number
   _count: { paintings: number }
 }
@@ -77,6 +78,7 @@ function SortableRow({ collection }: { collection: Collection }) {
       </TableCell>
       <TableCell className="font-medium">{collection.title}</TableCell>
       <TableCell>{collection.slug}</TableCell>
+      <TableCell>{collection.medium || '-'}</TableCell>
       <TableCell>{collection._count.paintings}</TableCell>
       <TableCell className="space-x-2 text-right">
         <Button variant="ghost" size="icon" asChild>
@@ -172,6 +174,7 @@ export function SortableCollectionsTable({
               <TableHead>Order</TableHead>
               <TableHead>Title</TableHead>
               <TableHead>Slug</TableHead>
+              <TableHead>Medium</TableHead>
               <TableHead>Paintings</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>

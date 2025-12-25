@@ -12,6 +12,7 @@ type Collection = {
   slug: string
   description: string
   tagline?: string | null
+  medium?: string | null
   order: number
   _count: { paintings: number }
   paintings: { imageUrl: string }[]
@@ -61,4 +62,3 @@ export function CollectionsView({ collections }: CollectionsViewProps) {
     </div>
   )
 }
-

@@ -95,6 +95,9 @@ function SortablePaintingCard({
         <CardTitle className="line-clamp-1 text-base">
           {painting.title}
         </CardTitle>
+        {painting.medium && (
+          <p className="text-muted-foreground text-xs">{painting.medium}</p>
+        )}
       </CardHeader>
       <CardContent className="text-muted-foreground p-4 pt-0 text-sm">
         <p>{painting.size}</p>

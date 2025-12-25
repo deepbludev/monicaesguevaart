@@ -79,6 +79,7 @@ export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
                 <TableHead>Image</TableHead>
                 <TableHead>Title</TableHead>
                 <TableHead>Collection</TableHead>
+                <TableHead>Medium</TableHead>
                 <TableHead>Size</TableHead>
                 <TableHead>Available</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
@@ -110,6 +111,7 @@ export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
                       {painting.collection.title}
                     </Link>
                   </TableCell>
+                  <TableCell>{painting.medium || '-'}</TableCell>
                   <TableCell>{painting.size}</TableCell>
                   <TableCell>
                     <form action={togglePaintingAvailable}>
@@ -164,6 +166,11 @@ export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
                 <CardTitle className="line-clamp-1 text-base">
                   {painting.title}
                 </CardTitle>
+                {painting.medium && (
+                  <p className="text-muted-foreground text-xs">
+                    {painting.medium}
+                  </p>
+                )}
               </CardHeader>
               <CardContent className="text-muted-foreground p-4 pt-0 text-sm">
                 <Link

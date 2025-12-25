@@ -93,6 +93,7 @@ function SortableRow({
         </div>
       </TableCell>
       <TableCell className="font-medium">{painting.title}</TableCell>
+      <TableCell>{painting.medium || '-'}</TableCell>
       <TableCell>{painting.size}</TableCell>
       <TableCell>
         <form action={togglePaintingAvailable}>
@@ -233,6 +234,7 @@ export function SortablePaintingsList({
               <TableHead>Order</TableHead>
               <TableHead>Image</TableHead>
               <TableHead>Title</TableHead>
+              <TableHead>Medium</TableHead>
               <TableHead>Size</TableHead>
               <TableHead>Available</TableHead>
               <TableHead className="text-right">Actions</TableHead>
