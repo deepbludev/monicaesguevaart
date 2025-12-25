@@ -47,22 +47,26 @@ export default async function DashboardPage() {
             Overview of your collections and paintings
           </p>
         </div>
-      </div>
-
-      {/* Quick Actions */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <Button asChild size="lg" className="h-auto flex-col gap-2 py-6">
-          <Link href="/admin/collections/new">
-            <Plus className="h-6 w-6" />
-            <span className="text-lg">Create New Collection</span>
-          </Link>
-        </Button>
-        <Button asChild size="lg" variant="outline" className="h-auto flex-col gap-2 py-6">
-          <Link href="/admin/paintings/new">
-            <Plus className="h-6 w-6" />
-            <span className="text-lg">Create New Painting</span>
-          </Link>
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            asChild
+            className="border border-gray-300 bg-white text-gray-900 hover:bg-gray-100"
+          >
+            <Link href="/admin/collections/new">
+              <Plus className="mr-2 h-4 w-4" />
+              New Collection
+            </Link>
+          </Button>
+          <Button
+            asChild
+            className="border border-gray-300 bg-white text-gray-900 hover:bg-gray-100"
+          >
+            <Link href="/admin/paintings/new">
+              <Plus className="mr-2 h-4 w-4" />
+              New Painting
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {/* Statistics Cards */}
@@ -75,7 +79,9 @@ export default async function DashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{collectionStats.totalCount}</div>
+            <div className="text-3xl font-bold">
+              {collectionStats.totalCount}
+            </div>
             <Link
               href="/admin/collections"
               className="text-muted-foreground hover:text-primary mt-2 flex items-center gap-1 text-sm transition-colors"
@@ -152,7 +158,10 @@ export default async function DashboardPage() {
                 {Object.entries(paintingStats.mediumBreakdown)
                   .sort(([, a], [, b]) => b - a)
                   .map(([medium, count]) => (
-                    <div key={medium} className="flex items-center justify-between">
+                    <div
+                      key={medium}
+                      className="flex items-center justify-between"
+                    >
                       <span className="text-sm">{medium}</span>
                       <span className="font-semibold">{count}</span>
                     </div>
@@ -191,7 +200,9 @@ export default async function DashboardPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-muted-foreground text-sm">No collections yet</p>
+              <p className="text-muted-foreground text-sm">
+                No collections yet
+              </p>
             )}
           </CardContent>
         </Card>
@@ -220,7 +231,9 @@ export default async function DashboardPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-muted-foreground text-sm">No collections yet</p>
+              <p className="text-muted-foreground text-sm">
+                No collections yet
+              </p>
             )}
           </CardContent>
         </Card>
@@ -243,7 +256,7 @@ export default async function DashboardPage() {
                     href={`/admin/paintings/${painting.id}/edit`}
                     className="hover:bg-accent flex items-center gap-3 rounded-lg p-2 transition-colors"
                   >
-                    <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded">
+                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded">
                       <Image
                         src={painting.imageUrl}
                         alt={painting.title}
@@ -251,7 +264,7 @@ export default async function DashboardPage() {
                         className="object-cover"
                       />
                     </div>
-                    <div className="flex-1 min-w-0">
+                    <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium">
                         {painting.title}
                       </p>
@@ -259,7 +272,7 @@ export default async function DashboardPage() {
                         {painting.collection.title}
                       </p>
                     </div>
-                    <ArrowRight className="h-4 w-4 flex-shrink-0" />
+                    <ArrowRight className="h-4 w-4 shrink-0" />
                   </Link>
                 ))}
               </div>
@@ -291,7 +304,9 @@ export default async function DashboardPage() {
                 >
                   <span className="text-sm">{collection.title}</span>
                   <Button asChild size="sm" variant="outline">
-                    <Link href={`/admin/collections/${collection.id}/paintings/new`}>
+                    <Link
+                      href={`/admin/collections/${collection.id}/paintings/new`}
+                    >
                       <Plus className="mr-2 h-4 w-4" />
                       Add Painting
                     </Link>
