@@ -18,8 +18,18 @@ const collectionSchema = z.object({
 
 export async function getCollections() {
   return await prisma.collection.findMany({
+    where: {
+      paintings: {
+        some: {},
+      },
+    },
     orderBy: { order: 'asc' },
-    include: { _count: { select: { paintings: true } } },
+    include: {
+      paintings: {
+        orderBy: { order: 'asc' },
+        take: 1,
+      },
+    },
   })
 }
 

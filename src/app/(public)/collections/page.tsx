@@ -48,7 +48,7 @@ export default async function CollectionsIndexPage() {
                 <div
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                   style={{
-                    backgroundImage: `url(${collection.imageUrl || 'https://placehold.co/600x800/222222/FFFFFF/png?text=' + collection.title})`,
+                    backgroundImage: `url(${collection.paintings[0]?.imageUrl || collection.imageUrl || 'https://placehold.co/600x800/222222/FFFFFF/png?text=' + collection.title})`,
                   }}
                 />
                 <div className="absolute inset-0 bg-black/10 transition-colors group-hover:bg-black/20" />
