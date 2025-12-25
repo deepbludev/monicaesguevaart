@@ -1,5 +1,12 @@
 export async function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
+    // Validate required environment variables
+    if (!process.env.SESSION_SECRET) {
+      throw new Error(
+        'SESSION_SECRET environment variable is required but not set. Please set it in your environment variables or .env file.',
+      )
+    }
+
     const { ensureAdminExists } = await import('./src/lib/admin')
 
     const email = process.env.ADMIN_EMAIL
