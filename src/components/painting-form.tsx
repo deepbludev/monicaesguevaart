@@ -139,11 +139,7 @@ export function PaintingForm({
         </div>
       </CardHeader>
       <CardContent>
-        <form
-          action={formAction}
-          className="space-y-4"
-          encType="multipart/form-data"
-        >
+        <form action={formAction} className="space-y-4">
           {showCollectionSelector && (
             <div className="space-y-2">
               <Label htmlFor="collection">Collection *</Label>
