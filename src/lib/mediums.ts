@@ -5,8 +5,8 @@
 export const MEDIUM_OPTIONS = [
   'Acrylic on canvas',
   'Acrylic on round canvas',
+  'Acrylic dyptich',
   'Watercolor',
 ] as const
 
 export type Medium = (typeof MEDIUM_OPTIONS)[number]
-
