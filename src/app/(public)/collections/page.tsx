@@ -1,71 +1,80 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { getCollections } from '@/actions/collections'
 
 export default async function CollectionsIndexPage() {
   const collections = await getCollections()
 
   return (
-    <div className="bg-background min-h-screen pb-24">
-      {/* Intro Section */}
-      <section className="relative overflow-hidden px-6 py-24 text-center md:py-32">
-        <div className="bg-secondary/10 absolute inset-0 -z-10" />
-        <div className="animate-in fade-in slide-in-from-bottom-8 container mx-auto max-w-4xl space-y-8 duration-1000">
-          <h1 className="text-primary font-serif text-5xl md:text-6xl">
-            Collections
-          </h1>
-          <p className="text-xl leading-relaxed font-light md:text-2xl">
-            Welcome to a realm where art is not decoration, but transmission.
-            &quot;Each collection tells a story, a journey through color and
-            emotion.&quot;cies, codes, and subtle architectures designed to
-            awaken remembrance — the ancient knowing already alive within your
-            spirit.
-          </p>
-          <p className="text-lg leading-relaxed font-light opacity-90 md:text-2xl">
-            These paintings are portals, not objects. They open the inner eye,
-            recalibrate the heart, touch your soul, and help dissolve the
-            densities that keep you bound to 3D perception. Their role is simple
-            and sacred: to assist your ascent into higher consciousness and
-            support the embodiment of your 5D Self.
-          </p>
-          <p className="text-muted-foreground pt-4 font-serif text-lg italic">
-            &quot;Your soul will recognize what your mind has not yet learned to
-            name.&quot;
-          </p>
+    <div className="bg-background min-h-screen">
+      {/* Header Image Strip */}
+      <section className="relative w-full overflow-hidden">
+        <div className="relative h-[40vh] min-h-[300px] w-full md:h-[50vh]">
+          <Image
+            src="/collections-header.jpg"
+            alt="Collections"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <h1 className="text-5xl font-light tracking-wide text-white md:text-7xl">
+              Collections
+            </h1>
+          </div>
         </div>
       </section>
 
-      {/* Grid Section */}
-      <section className="container mx-auto px-6">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+      {/* Collections List */}
+      <section className="container mx-auto px-6 py-12 md:py-16">
+        <div className="space-y-12 md:space-y-16">
           {collections.map((collection) => (
-            <Link
+            <div
               key={collection.id}
-              href={`/collections/${collection.slug}`}
-              className="group block space-y-4"
-              // Add stagger animation roughly
+              className="flex flex-col gap-6 md:flex-row md:gap-8"
             >
-              <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-gray-100 shadow-sm transition-shadow duration-500 group-hover:shadow-xl">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                  style={{
-                    backgroundImage: `url(${collection.paintings[0]?.imageUrl || collection.imageUrl || 'https://placehold.co/600x800/222222/FFFFFF/png?text=' + collection.title})`,
-                  }}
-                />
-                <div className="absolute inset-0 bg-black/10 transition-colors group-hover:bg-black/20" />
+              {/* Image on Left */}
+              <div className="shrink-0 md:w-1/3 lg:max-w-xs">
+                <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 shadow-sm">
+                  <Image
+                    src={
+                      collection.paintings[0]?.imageUrl ||
+                      collection.imageUrl ||
+                      'https://placehold.co/600x600/222222/FFFFFF/png?text=' +
+                        collection.title
+                    }
+                    alt={collection.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </div>
 
-              <div className="space-y-2 text-center">
-                <h3 className="text-primary group-hover:text-accent-foreground font-serif text-3xl transition-colors">
-                  {collection.title}
-                </h3>
-                <p className="text-muted-foreground text-sm tracking-widest uppercase">
-                  {collection.tagline}
-                </p>
-                <p className="line-clamp-2 px-4 text-sm opacity-80">
+              {/* Content on Right */}
+              <div className="flex flex-col justify-center space-y-4 md:flex-1">
+                <div className="space-y-2">
+                  <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl">
+                    {collection.title}
+                  </h2>
+                  {collection.tagline && (
+                    <p className="text-muted-foreground text-sm font-light italic md:text-base">
+                      {collection.tagline}
+                    </p>
+                  )}
+                </div>
+                <p className="text-base leading-relaxed font-light md:text-lg">
                   {collection.description}
                 </p>
+                <div className="pt-2">
+                  <Link
+                    href={`/collections/${collection.slug}`}
+                    className="inline-block rounded-md border border-gray-300 bg-white px-6 py-3 text-sm font-medium tracking-wide text-gray-900 transition-colors hover:border-gray-400 hover:bg-gray-50"
+                  >
+                    View gallery &gt;
+                  </Link>
+                </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </section>

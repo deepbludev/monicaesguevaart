@@ -33,6 +33,15 @@ export async function getCollections() {
   })
 }
 
+export async function getAllCollectionsForAdmin() {
+  return await prisma.collection.findMany({
+    orderBy: { order: 'asc' },
+    include: {
+      _count: { select: { paintings: true } },
+    },
+  })
+}
+
 export async function getCollectionBySlug(slug: string) {
   return await prisma.collection.findUnique({
     where: { slug },

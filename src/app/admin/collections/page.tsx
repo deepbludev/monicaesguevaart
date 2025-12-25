@@ -1,11 +1,11 @@
 import Link from 'next/link'
-import { getCollections } from '@/actions/collections'
+import { getAllCollectionsForAdmin } from '@/actions/collections'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
 import { CollectionsView } from '@/components/admin/collections-view'
 
 export default async function CollectionsPage() {
-  const collections = await getCollections()
+  const collections = await getAllCollectionsForAdmin()
 
   return (
     <div className="space-y-6">
