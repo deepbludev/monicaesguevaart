@@ -2,8 +2,6 @@ import { getCollectionBySlug } from '@/actions/collections'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Button } from '@/components/ui/button'
-import { ArrowLeft } from 'lucide-react'
 
 export default async function CollectionDetailPage({
   params,
@@ -18,50 +16,51 @@ export default async function CollectionDetailPage({
   }
 
   return (
-    <div className="bg-background min-h-screen pb-24">
-      {/* Header Section */}
-      <section className="relative flex h-[60vh] min-h-[500px] items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${collection.imageUrl || 'https://placehold.co/1920x1080/222222/FFFFFF/png?text=' + collection.title})`,
-          }}
-        />
-        <div className="absolute inset-0 bg-black/50" />
-
-        <div className="relative z-10 container space-y-6 text-center text-white">
-          <h1 className="font-serif text-5xl tracking-tight md:text-7xl">
-            {collection.title}
-          </h1>
-          <p className="text-xl font-light italic opacity-90 md:text-2xl">
-            {collection.tagline}
-          </p>
-          <div className="pt-8">
-            <p className="mx-auto max-w-2xl text-lg leading-relaxed">
-              {collection.description}
-            </p>
-          </div>
+    <div className="bg-background min-h-screen">
+      {/* Image Strip */}
+      <section className="relative w-full overflow-hidden">
+        <div className="relative w-full">
+          <Image
+            src={
+              collection.imageUrl ||
+              'https://placehold.co/1920x1080/222222/FFFFFF/png?text=' +
+                collection.title
+            }
+            alt={collection.title}
+            width={1920}
+            height={1080}
+            className="h-auto w-full object-cover"
+            priority
+          />
         </div>
       </section>
 
-      {/* Breadcrumb / Back */}
-      <div className="container mx-auto px-6 py-8">
-        <Link
-          href="/collections"
-          className="hover:text-primary inline-flex items-center text-sm tracking-widest uppercase transition-colors"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" /> Back to Collections
-        </Link>
-      </div>
+      {/* Title and Description Section */}
+      <section className="container mx-auto px-6 py-12 md:py-16">
+        <div className="mx-auto max-w-4xl space-y-6 text-center">
+          {collection.tagline && (
+            <p className="text-muted-foreground text-sm font-light tracking-wide uppercase md:text-base">
+              {collection.tagline}
+            </p>
+          )}
+          <h1 className="font-serif text-4xl tracking-tight md:text-6xl lg:text-7xl">
+            {collection.title}
+          </h1>
+          <div className="border-primary/30 mx-auto w-24 border-t" />
+          <p className="mx-auto max-w-2xl text-base leading-relaxed font-light md:text-lg">
+            {collection.description}
+          </p>
+        </div>
+      </section>
 
       {/* Artwork Grid */}
-      <section className="container mx-auto px-6">
-        <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
+      <section className="container mx-auto px-6 pb-24">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {collection.paintings.map((painting) => (
-            <div key={painting.id} className="group space-y-6">
+            <div key={painting.id} className="group space-y-4">
               <Link
                 href={`/paintings/${painting.id}`}
-                className="block relative aspect-4/5 cursor-pointer overflow-hidden rounded-lg bg-gray-100 shadow-sm transition-all duration-500 hover:shadow-xl"
+                className="relative block aspect-4/5 cursor-pointer overflow-hidden rounded-lg bg-gray-100 shadow-sm transition-all duration-500 hover:shadow-xl"
               >
                 <Image
                   src={painting.imageUrl}
@@ -72,50 +71,41 @@ export default async function CollectionDetailPage({
                 <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10" />
               </Link>
 
-              <div className="space-y-1 text-center">
+              <div className="space-y-2 text-center">
                 <Link
                   href={`/paintings/${painting.id}`}
-                  className="block hover:text-primary transition-colors"
+                  className="hover:text-primary block transition-colors"
                 >
-                  <h3 className="text-primary font-serif text-2xl">
+                  <h3 className="font-serif text-xl md:text-2xl">
                     {painting.title}
                   </h3>
                 </Link>
-                <p className="text-muted-foreground text-sm font-light tracking-wide uppercase">
-                  {painting.medium} {painting.size && `• ${painting.size}`}{' '}
-                  {painting.year && `• ${painting.year}`}
-                </p>
-                {painting.description && (
-                  <p className="mx-auto max-w-md pt-2 text-sm italic opacity-80">
-                    {painting.description}
+                {painting.size && (
+                  <p className="text-muted-foreground text-sm">
+                    {painting.size}
                   </p>
                 )}
-
-                <div className="pt-4">
-                  <Button
-                    variant="outline"
-                    className="text-xs tracking-widest uppercase"
-                    asChild
-                  >
-                    <Link href="/contact">Inquire</Link>
-                  </Button>
-                </div>
+                <Link
+                  href={`/paintings/${painting.id}`}
+                  className="hover:text-primary inline-block text-sm font-medium tracking-wide transition-colors"
+                >
+                  View details &gt;
+                </Link>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Footer Guidance */}
-      <section className="container mx-auto max-w-2xl px-6 py-24 text-center">
-        <h3 className="mb-4 font-serif text-2xl italic">
-          &quot;Allow yourself to feel rather than think.&quot;
-        </h3>
-        <p className="opacity-80">
-          Trust the intelligence of your body and soul. They recognize the codes
-          long before the mind understands them.
-        </p>
-      </section>
+      {/* Back Button */}
+      <div className="container mx-auto px-6 pb-24 text-center">
+        <Link
+          href="/collections"
+          className="inline-block rounded-md border border-gray-300 bg-white px-6 py-3 text-sm font-medium tracking-wide text-gray-900 transition-colors hover:border-gray-400 hover:bg-gray-50"
+        >
+          Back to collections
+        </Link>
+      </div>
     </div>
   )
 }
