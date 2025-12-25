@@ -1,29 +1,19 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getCollections } from '@/actions/collections'
+import { ParallaxHeaderStrip } from '@/components/parallax-header-strip'
 
 export default async function CollectionsIndexPage() {
   const collections = await getCollections()
 
   return (
     <div className="bg-background min-h-screen">
-      {/* Header Image Strip */}
-      <section className="relative w-full overflow-hidden">
-        <div className="relative h-[40vh] min-h-[300px] w-full md:h-[50vh]">
-          <Image
-            src="/collections-header.jpg"
-            alt="Collections"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <h1 className="text-5xl font-light tracking-wide text-white md:text-7xl">
-              Collections
-            </h1>
-          </div>
-        </div>
-      </section>
+      {/* Header Image Strip with Parallax */}
+      <ParallaxHeaderStrip src="/collections-header.jpg" alt="Collections">
+        <h1 className="text-5xl font-light tracking-wide text-white md:text-7xl">
+          Collections
+        </h1>
+      </ParallaxHeaderStrip>
 
       {/* Collections List */}
       <section className="container mx-auto px-6 py-12 md:py-16">

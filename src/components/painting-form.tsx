@@ -49,9 +49,7 @@ export function PaintingForm({
     initialCollectionId || painting?.collectionId || collections?.[0]?.id || '',
   )
   const [showCollectionError, setShowCollectionError] = useState(false)
-  const [medium, setMedium] = useState<string>(
-    painting?.medium || '',
-  )
+  const [medium, setMedium] = useState<string>(painting?.medium || '')
 
   // Determine redirect destination based on whether collections prop is provided
   const redirectTo = showCollectionSelector ? 'paintings' : 'collection'

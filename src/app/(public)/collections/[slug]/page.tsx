@@ -2,6 +2,7 @@ import { getCollectionBySlug } from '@/actions/collections'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import { ParallaxHeaderStrip } from '@/components/parallax-header-strip'
 
 export default async function CollectionDetailPage({
   params,
@@ -17,21 +18,11 @@ export default async function CollectionDetailPage({
 
   return (
     <div className="bg-background min-h-screen">
-      {/* Image Strip */}
-      <section className="relative w-full overflow-hidden">
-        <div className="relative w-full">
-          <Image
-            src={
-              collection.paintings[0]?.imageUrl || '/meart-default.png'
-            }
-            alt={collection.title}
-            width={1920}
-            height={1080}
-            className="h-auto w-full object-cover"
-            priority
-          />
-        </div>
-      </section>
+      {/* Image Strip with Parallax */}
+      <ParallaxHeaderStrip
+        src={collection.paintings[0]?.imageUrl || '/meart-default.png'}
+        alt={collection.title}
+      />
 
       {/* Title and Description Section */}
       <section className="container mx-auto px-6 py-12 md:py-16">
