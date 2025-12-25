@@ -32,8 +32,6 @@ export async function getCollectionBySlug(slug: string) {
 
 import { Prisma } from '@prisma/client'
 
-// ... existing code ...
-
 export async function createCollection(prevState: unknown, formData: FormData) {
   const data = Object.fromEntries(formData)
   const parsed = collectionSchema.safeParse({
@@ -100,4 +98,36 @@ export async function updateCollection(
 export async function deleteCollection(id: string) {
   await prisma.collection.delete({ where: { id } })
   revalidatePath('/admin/collections')
+}
+
+export async function updateCollectionOrder(
+  collectionId: string,
+  newOrder: number,
+) {
+  await prisma.collection.update({
+    where: { id: collectionId },
+    data: { order: newOrder },
+  })
+  revalidatePath('/admin/collections')
+  revalidatePath('/collections')
+}
+
+export async function reorderCollections(orderedIds: string[]) {
+  try {
+    // Update all collections with new order values based on their position in the array
+    await prisma.$transaction(
+      orderedIds.map((id, index) =>
+        prisma.collection.update({
+          where: { id },
+          data: { order: index },
+        }),
+      ),
+    )
+    revalidatePath('/admin/collections')
+    revalidatePath('/collections')
+    return { success: true }
+  } catch (error) {
+    console.error('Failed to reorder collections:', error)
+    return { success: false, error: 'Failed to reorder collections' }
+  }
 }

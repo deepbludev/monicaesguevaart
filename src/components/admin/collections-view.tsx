@@ -1,19 +1,28 @@
 'use client'
 
 import { useState } from 'react'
-import { Painting } from '@prisma/client'
 import { LayoutGrid, List as ListIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { SortablePaintingsList } from './sortable-paintings-list'
-import { SortablePaintingsGrid } from './sortable-paintings-grid'
+import { SortableCollectionsTable } from './sortable-collections-table'
+import { SortableCollectionsGrid } from './sortable-collections-grid'
 
-interface PaintingsViewProps {
-  paintings: Painting[]
-  collectionId: string
+type Collection = {
+  id: string
+  title: string
+  slug: string
+  description: string
+  tagline?: string | null
+  imageUrl?: string | null
+  order: number
+  _count: { paintings: number }
 }
 
-export function PaintingsView({ paintings, collectionId }: PaintingsViewProps) {
-  const [view, setView] = useState<'grid' | 'list'>('grid')
+interface CollectionsViewProps {
+  collections: Collection[]
+}
+
+export function CollectionsView({ collections }: CollectionsViewProps) {
+  const [view, setView] = useState<'grid' | 'list'>('list')
 
   return (
     <div className="space-y-6">
@@ -40,15 +49,16 @@ export function PaintingsView({ paintings, collectionId }: PaintingsViewProps) {
         </div>
       </div>
 
-      {paintings.length === 0 ? (
+      {collections.length === 0 ? (
         <div className="text-muted-foreground rounded-md border border-dashed p-8 text-center">
-          No paintings found. Add one to get started.
+          No collections found. Add one to get started.
         </div>
       ) : view === 'list' ? (
-        <SortablePaintingsList paintings={paintings} collectionId={collectionId} />
+        <SortableCollectionsTable collections={collections} />
       ) : (
-        <SortablePaintingsGrid paintings={paintings} collectionId={collectionId} />
+        <SortableCollectionsGrid collections={collections} />
       )}
     </div>
   )
 }
+

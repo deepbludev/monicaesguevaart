@@ -250,3 +250,65 @@ export async function deletePainting(collectionId: string, paintingId: string) {
   revalidatePath(`/admin/collections/${collectionId}/paintings`)
   revalidatePath('/admin/paintings')
 }
+
+export async function updatePaintingOrder(
+  paintingId: string,
+  newOrder: number,
+) {
+  const painting = await prisma.painting.findUnique({
+    where: { id: paintingId },
+    select: { collectionId: true },
+  })
+
+  if (!painting) {
+    return { success: false, error: 'Painting not found' }
+  }
+
+  await prisma.painting.update({
+    where: { id: paintingId },
+    data: { order: newOrder },
+  })
+
+  revalidatePath(`/admin/collections/${painting.collectionId}/paintings`)
+  revalidatePath('/admin/paintings')
+  return { success: true }
+}
+
+export async function reorderPaintings(
+  collectionId: string,
+  orderedIds: string[],
+) {
+  try {
+    // Verify all paintings belong to the collection
+    const paintings = await prisma.painting.findMany({
+      where: {
+        id: { in: orderedIds },
+        collectionId,
+      },
+      select: { id: true },
+    })
+
+    if (paintings.length !== orderedIds.length) {
+      return {
+        success: false,
+        error: 'Some paintings do not belong to this collection',
+      }
+    }
+
+    // Update all paintings with new order values based on their position in the array
+    await prisma.$transaction(
+      orderedIds.map((id, index) =>
+        prisma.painting.update({
+          where: { id, collectionId },
+          data: { order: index },
+        }),
+      ),
+    )
+    revalidatePath(`/admin/collections/${collectionId}/paintings`)
+    revalidatePath('/admin/paintings')
+    return { success: true }
+  } catch (error) {
+    console.error('Failed to reorder paintings:', error)
+    return { success: false, error: 'Failed to reorder paintings' }
+  }
+}
