@@ -241,8 +241,9 @@ export async function togglePaintingAvailable(
     data: { available: !painting.available },
   })
 
-  revalidatePath(`/admin/collections/${painting.collectionId}/paintings`)
-  revalidatePath('/admin/paintings')
+  // Don't revalidate to avoid re-render loops
+  // The optimistic update in the component provides immediate feedback
+  // The page will sync on next navigation or manual refresh
 }
 
 export async function deletePainting(collectionId: string, paintingId: string) {
@@ -361,4 +362,3 @@ export async function getDashboardStats() {
     recentPaintings,
   }
 }
-
