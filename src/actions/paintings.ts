@@ -32,7 +32,7 @@ export async function getPaintings(collectionId: string) {
 export async function getAllPaintings(collectionId?: string, search?: string) {
   const where: {
     collectionId?: string
-    title?: { contains: string }
+    title?: { contains: string; mode?: 'insensitive' }
   } = {}
 
   if (collectionId) {
@@ -40,7 +40,7 @@ export async function getAllPaintings(collectionId?: string, search?: string) {
   }
 
   if (search) {
-    where.title = { contains: search }
+    where.title = { contains: search, mode: 'insensitive' }
   }
 
   return await prisma.painting.findMany({
