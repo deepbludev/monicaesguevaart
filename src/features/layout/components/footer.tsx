@@ -49,7 +49,7 @@ export function Footer() {
                 Contact
               </Link>
               <Link
-                href="/login"
+                href="/admin"
                 className="hover:text-primary transition-colors"
               >
                 Admin

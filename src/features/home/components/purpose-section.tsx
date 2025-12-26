@@ -46,8 +46,9 @@ export function PurposeSection() {
             })}
           </div>
 
-          <p className="text-muted-foreground pt-8 font-serif text-lg italic md:text-xl">
-            &quot;Art is not just about what you see, but what you feel.&quot;
+          <p className="text-muted-foreground pt-8 font-serif text-lg italic md:text-3xl">
+            &quot;This is art as energetic technology — a bridge between
+            worlds&quot;
           </p>
         </div>
       </div>
