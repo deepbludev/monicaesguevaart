@@ -3,31 +3,17 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/atoms/button'
 import Link from 'next/link'
+import { ParallaxHeaderStrip } from '@/features/layout/components/parallax-header-strip'
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-neutral-50 pt-20 dark:bg-neutral-900">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 md:py-32">
-        <div className="relative z-10 container mx-auto px-6">
-          <div className="mx-auto max-w-4xl space-y-8 text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-foreground font-serif text-5xl md:text-7xl"
-            >
-              The Artist
-            </motion.h1>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="bg-primary mx-auto h-1 w-24"
-            />
-          </div>
-        </div>
-      </section>
+    <main className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+      {/* Header Image Strip with Parallax */}
+      <ParallaxHeaderStrip src="/about-header.jpg" alt="The Artist">
+        <h1 className="text-5xl font-light tracking-wide text-white md:text-7xl">
+          The Artist
+        </h1>
+      </ParallaxHeaderStrip>
 
       {/* Bio Section */}
       <section className="bg-background py-12 md:py-24">
