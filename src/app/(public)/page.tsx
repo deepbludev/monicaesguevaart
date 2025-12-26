@@ -1,7 +1,7 @@
-import { HeroSection } from '@/components/home/hero-section'
-import { ExperienceSection } from '@/components/home/experience-section'
-import { PurposeSection } from '@/components/home/purpose-section'
-import { FeaturedCollections } from '@/components/home/featured-collections'
+import { HeroSection } from '@/features/home/components/hero-section'
+import { ExperienceSection } from '@/features/home/components/experience-section'
+import { PurposeSection } from '@/features/home/components/purpose-section'
+import { FeaturedCollections } from '@/features/home/components/featured-collections'
 
 export default function Home() {
   return (

@@ -1,7 +1,7 @@
-import { getPainting } from '@/actions/paintings'
-import { getCollections } from '@/actions/collections'
+import { getPainting } from '@/features/admin/paintings/actions/paintings'
+import { getAllCollectionsForAdmin as getCollections } from '@/features/admin/collections/actions/collections'
 import { notFound } from 'next/navigation'
-import { PaintingForm } from '@/components/painting-form'
+import { PaintingForm } from '@/features/admin/paintings/components/painting-form'
 
 export default async function EditPaintingPage({
   params,

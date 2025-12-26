@@ -1,5 +1,5 @@
-import { PaintingForm } from '@/components/painting-form'
-import { getPainting } from '@/actions/paintings'
+import { PaintingForm } from '@/features/admin/paintings/components/painting-form'
+import { getPainting } from '@/features/admin/paintings/actions/paintings'
 import { notFound } from 'next/navigation'
 import { PrismaClient } from '@prisma/client'
 

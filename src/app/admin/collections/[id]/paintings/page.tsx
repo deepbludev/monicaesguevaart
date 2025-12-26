@@ -1,10 +1,10 @@
 import Link from 'next/link'
-import { getPaintings } from '@/actions/paintings'
+import { getPaintings } from '@/features/admin/paintings/actions/paintings'
 import { PrismaClient } from '@prisma/client'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/atoms/button'
 import { Plus, ArrowLeft } from 'lucide-react'
 import { notFound } from 'next/navigation'
-import { PaintingsView } from '@/components/admin/paintings-view'
+import { PaintingsView } from '@/features/admin/paintings/components/paintings-view'
 
 const prisma = new PrismaClient()
 

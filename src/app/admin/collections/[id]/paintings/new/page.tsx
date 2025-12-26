@@ -1,4 +1,4 @@
-import { PaintingForm } from '@/components/painting-form'
+import { PaintingForm } from '@/features/admin/paintings/components/painting-form'
 
 export default async function NewPaintingPage({
   params,

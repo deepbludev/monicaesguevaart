@@ -1,6 +1,6 @@
-import { AdminSidebar } from '@/components/admin-sidebar'
-import { Navbar } from '@/components/navbar'
-import { Footer } from '@/components/footer'
+import { AdminSidebar } from '@/features/layout/components/admin-sidebar'
+import { Navbar } from '@/features/layout/components/navbar'
+import { Footer } from '@/features/layout/components/footer'
 
 export default function AdminLayout({
   children,

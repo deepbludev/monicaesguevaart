@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import { getAllCollectionsForAdmin } from '@/actions/collections'
-import { Button } from '@/components/ui/button'
+import { getAllCollectionsForAdmin } from '@/features/admin/collections/actions/collections'
+import { Button } from '@/components/atoms/button'
 import { Plus } from 'lucide-react'
-import { CollectionsView } from '@/components/admin/collections-view'
+import { CollectionsView } from '@/features/admin/collections/components/collections-view'
 
 export default async function CollectionsPage() {
   const collections = await getAllCollectionsForAdmin()
