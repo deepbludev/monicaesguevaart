@@ -7,7 +7,7 @@ export function MeetTheArtist() {
     <section className="bg-secondary/20 py-24">
       <div className="container mx-auto grid items-center gap-12 px-6 md:grid-cols-[1fr_2fr]">
         {/* Image */}
-        <div className="relative mx-auto aspect-[2/3] w-full max-w-sm overflow-hidden rounded-lg bg-gray-200">
+        <div className="relative mx-auto aspect-2/3 w-full max-w-sm overflow-hidden rounded-lg bg-gray-200">
           <Image
             src="/monica-esgueva-about-homepage.jpg"
             alt="Mónica Esgueva"
@@ -33,7 +33,11 @@ export function MeetTheArtist() {
             Her paintings have been exhibited internationally and are recognized
             for their ability to activate, uplift, and awaken the soul.
           </p>
-          <Button asChild variant="outline" className="px-8 tracking-widest uppercase">
+          <Button
+            asChild
+            variant="outline"
+            className="px-8 tracking-widest uppercase"
+          >
             <Link href="/about">Read My Story</Link>
           </Button>
         </div>
