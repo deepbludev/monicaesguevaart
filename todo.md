@@ -1,5 +1,3 @@
-TODO:
-
 - [x] Mediums as dropdown (include watercolors)
 - [x] Add medium to collections
 - [x] Set default image to collection when empty
