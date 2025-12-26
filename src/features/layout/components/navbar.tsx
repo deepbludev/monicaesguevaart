@@ -47,13 +47,6 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Button
-            variant="outline"
-            asChild
-            className="ml-4 text-xs tracking-widest uppercase"
-          >
-            <Link href="/collections">View Gallery</Link>
-          </Button>
         </div>
 
         {/* Mobile Menu Button */}

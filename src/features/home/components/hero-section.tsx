@@ -48,13 +48,21 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="space-y-6"
+          className="max-w-5xl space-y-6"
         >
-          <h1 className="font-serif text-5xl tracking-wider md:text-7xl lg:text-8xl">
-            MONICA ESGUEVA
+          <h1 className="font-serif text-5xl tracking-wider md:text-6xl lg:text-7xl">
+            Art as a Path of Awakening
           </h1>
-          <p className="text-lg font-light tracking-[0.2em] uppercase opacity-90 md:text-xl">
-            Art that Speaks to the Soul
+          <p className="text-lg font-light tracking-wide opacity-90 md:text-xl lg:text-2xl">
+            Paintings carrying coded frequencies to activate intuition,
+            remembrance, and Ascension.
+          </p>
+
+          <p className="mx-auto max-w-2xl pt-2 text-base leading-relaxed font-light opacity-85 md:text-lg lg:text-xl">
+            These works are living fields of energy.
+            <br />
+            They speak directly to the soul, softening the veils of perception
+            and opening pathways to higher consciousness.
           </p>
 
           <div className="pt-8">
@@ -63,7 +71,7 @@ export function HeroSection() {
               size="lg"
               className="transform rounded-none bg-white px-8 py-6 text-sm tracking-[0.2em] text-black uppercase transition-all duration-300 hover:scale-105 hover:bg-white/90"
             >
-              <Link href="/collections">Enter Gallery</Link>
+              <Link href="/collections">Enter the Collections</Link>
             </Button>
           </div>
         </motion.div>

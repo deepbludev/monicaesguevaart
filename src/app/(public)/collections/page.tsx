@@ -61,7 +61,7 @@ export default async function CollectionsIndexPage() {
                     href={`/collections/${collection.slug}`}
                     className="inline-block rounded-md border border-gray-300 bg-white px-6 py-3 text-sm font-medium tracking-wide text-gray-900 transition-colors hover:border-gray-400 hover:bg-gray-50"
                   >
-                    View gallery &gt;
+                    View collection &gt;
                   </Link>
                 </div>
               </div>
