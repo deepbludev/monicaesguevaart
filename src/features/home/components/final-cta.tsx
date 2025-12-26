@@ -1,32 +1,42 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/atoms/button'
 
 export function FinalCTA() {
   return (
-    <section className="relative bg-[url('https://placehold.co/1920x800/111111/444444/png?text=Cosmic+Sky')] bg-cover bg-center py-32 text-center text-white">
-      <div className="absolute inset-0 bg-black/60" />
+    <section className="relative flex min-h-[80vh] items-center overflow-hidden py-48 text-center md:py-64">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/central-sun-cta.jpg"
+          alt="Central Sun"
+          fill
+          className="object-cover"
+          quality={90}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
 
-      <div className="relative z-10 container space-y-8 px-6">
-        <h2 className="font-serif text-4xl md:text-6xl">
+      {/* Content */}
+      <div className="relative z-10 container mx-auto w-full max-w-4xl space-y-8 px-6">
+        <h2 className="font-serif text-4xl text-white md:text-6xl">
           Ready to Work with the Codes?
         </h2>
-        <p className="text-xl font-light opacity-90 md:text-2xl">
+        <p className="text-xl font-light text-white/90 md:text-2xl">
           Choose the piece that calls your soul.
         </p>
 
-        <div className="flex flex-col justify-center gap-6 pt-8 sm:flex-row">
+        <div className="flex flex-col items-center justify-center gap-6 pt-8 sm:flex-row">
           <Button
             asChild
-            size="lg"
-            className="rounded-full bg-white px-8 py-6 text-lg tracking-widest text-black uppercase hover:bg-white/90"
+            className="bg-white px-8 py-6 tracking-widest text-black uppercase transition-all duration-300 hover:bg-white/90"
           >
             <Link href="/collections">Explore the Collections</Link>
           </Button>
           <Button
             asChild
             variant="outline"
-            size="lg"
-            className="rounded-full border-white px-8 py-6 text-lg tracking-widest text-white uppercase hover:bg-white/10"
+            className="border-2 border-white bg-white/10 px-8 py-6 tracking-widest text-white uppercase backdrop-blur-sm transition-all duration-300 hover:bg-white/20"
           >
             <Link href="/contact">Contact Mónica</Link>
           </Button>

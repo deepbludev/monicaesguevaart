@@ -32,7 +32,7 @@ import {
   deletePainting,
   togglePaintingAvailable,
   reorderPaintings,
-} from '@/actions/paintings'
+} from '@/features/admin/paintings/actions/paintings'
 import { Checkbox } from '@/components/ui/checkbox'
 import Image from 'next/image'
 import { useState } from 'react'

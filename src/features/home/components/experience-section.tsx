@@ -8,13 +8,13 @@ export function ExperienceSection() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/experience-bg.jpg"
+          src="/experience.jpg"
           alt="Experience background"
           fill
           className="object-cover"
           quality={90}
         />
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
       <div className="relative z-10 container mx-auto max-w-3xl space-y-12 px-6">

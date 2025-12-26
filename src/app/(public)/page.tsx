@@ -4,6 +4,7 @@ import { PurposeSection } from '@/features/home/components/purpose-section'
 import { FeaturedCollections } from '@/features/home/components/featured-collections'
 import { FAQSection } from '@/features/home/components/faq-section'
 import { MeetTheArtist } from '@/features/home/components/meet-artist'
+import { FinalCTA } from '@/features/home/components/final-cta'
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <PurposeSection />
       <ExperienceSection />
       <FAQSection />
+      <FinalCTA />
     </main>
   )
 }
