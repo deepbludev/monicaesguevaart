@@ -1,13 +1,20 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/atoms/button'
 
 export function MeetTheArtist() {
   return (
     <section className="bg-secondary/20 py-24">
-      <div className="container mx-auto grid items-center gap-12 px-6 md:grid-cols-2">
+      <div className="container mx-auto grid items-center gap-12 px-6 md:grid-cols-[1fr_2fr]">
         {/* Image */}
-        <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-gray-200 md:aspect-square">
-          <div className="absolute inset-0 bg-[url('https://placehold.co/800x800/333333/FFFFFF/png?text=Monica')] bg-cover bg-center" />
+        <div className="relative mx-auto aspect-[2/3] w-full max-w-sm overflow-hidden rounded-lg bg-gray-200">
+          <Image
+            src="/monica-esgueva-about-homepage.jpg"
+            alt="Mónica Esgueva"
+            fill
+            className="object-cover"
+            quality={90}
+          />
         </div>
 
         {/* Text */}
@@ -26,7 +33,7 @@ export function MeetTheArtist() {
             Her paintings have been exhibited internationally and are recognized
             for their ability to activate, uplift, and awaken the soul.
           </p>
-          <Button asChild className="px-8 tracking-widest uppercase">
+          <Button asChild variant="outline" className="px-8 tracking-widest uppercase">
             <Link href="/about">Read My Story</Link>
           </Button>
         </div>
