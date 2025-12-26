@@ -10,7 +10,7 @@ export function Footer() {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           {/* Brand */}
-          <div className="space-y-6 md:col-span-2">
+          <div className="space-y-2 md:col-span-2">
             <Link href="/" className="block">
               <Image
                 src="/meart-logo.png"
@@ -20,6 +20,9 @@ export function Footer() {
                 className="h-auto max-h-16 w-auto object-contain"
               />
             </Link>
+            <p className="text-muted-foreground font-serif text-lg italic">
+              Art That Awakens the Soul
+            </p>
             <p className="text-muted-foreground max-w-sm font-light">
               Sacred art that serves as a portal to higher dimensions. Helping
               you reconnect with your &apos;s essence.
