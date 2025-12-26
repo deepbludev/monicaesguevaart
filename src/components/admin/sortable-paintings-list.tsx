@@ -96,17 +96,24 @@ function SortableRow({
       <TableCell>{painting.medium || '-'}</TableCell>
       <TableCell>{painting.size}</TableCell>
       <TableCell>
-        <form action={togglePaintingAvailable}>
+        <form action={togglePaintingAvailable} id={`form-list-${painting.id}`}>
           <input type="hidden" name="paintingId" value={painting.id} />
-          <button
-            type="submit"
+          <label
+            htmlFor={`form-list-${painting.id}`}
             className="cursor-pointer"
             title={
               painting.available ? 'Mark as unavailable' : 'Mark as available'
             }
+            onClick={(e) => {
+              e.preventDefault();
+              const form = e.currentTarget.closest('form');
+              if (form) {
+                form.requestSubmit();
+              }
+            }}
           >
             <Checkbox checked={painting.available} />
-          </button>
+          </label>
         </form>
       </TableCell>
       <TableCell className="text-right">
