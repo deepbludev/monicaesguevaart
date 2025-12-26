@@ -8,9 +8,9 @@
 - [x] Use proper default_secret_key_change_me in session.ts with .env and check for security on startup
 - [x] make search case insensitive
 - [x] make admin sidebar full size
+- [x] refactor to use vertical architecture with atmoic design patterns
 - [ ] review new content
 - [ ] Add exhibitions to about page
 - [ ] Setup contact page w/ emails
-- [ ] refactor to use vertical architecture with atmoic design patterns
 - [ ] Document and update README.md with new features and setup instructions
 - [ ] Test suite
