@@ -102,18 +102,25 @@ function SortablePaintingCard({
       <CardContent className="text-muted-foreground p-4 pt-0 text-sm">
         <p>{painting.size}</p>
         <div className="mt-2 flex items-center gap-2">
-          <form action={togglePaintingAvailable}>
+          <form action={togglePaintingAvailable} id={`form-${painting.id}`}>
             <input type="hidden" name="paintingId" value={painting.id} />
-            <button
-              type="submit"
+            <label
+              htmlFor={`form-${painting.id}`}
               className="flex cursor-pointer items-center gap-2"
               title={
                 painting.available ? 'Mark as unavailable' : 'Mark as available'
               }
+              onClick={(e) => {
+                e.preventDefault()
+                const form = e.currentTarget.closest('form')
+                if (form) {
+                  form.requestSubmit()
+                }
+              }}
             >
               <Checkbox checked={painting.available} />
               <span className="text-xs">Available</span>
-            </button>
+            </label>
           </form>
         </div>
       </CardContent>

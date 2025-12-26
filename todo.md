@@ -8,8 +8,10 @@ TODO:
 - [ ] improve admin dashboard page and default /admin
 - [ ] import paintings
 - [x] make search case insensitive
-- [] Add exhibitions to about page
-- [] Setup contact page w/ emails
+- [ ] Add exhibitions to about page
+- [ ] Setup contact page w/ emails
 - [x] Use proper default_secret_key_change_me in session.ts with .env and check for security on startup
-- [] Document and update README.md with new features and setup instructions
-- [] Test suite
+- [ ] Document and update README.md with new features and setup instructions
+- [ ] Test suite
+- [ ] available toggle doesnt change in production
+- [ ] make admin sidebar full size
