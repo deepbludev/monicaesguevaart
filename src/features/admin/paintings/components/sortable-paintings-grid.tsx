@@ -41,9 +41,13 @@ interface SortablePaintingsGridProps {
 function SortablePaintingCard({
   painting,
   collectionId,
+  optimisticAvailable,
+  onToggle,
 }: {
   painting: Painting
   collectionId: string
+  optimisticAvailable?: boolean
+  onToggle?: (newValue: boolean) => void
 }) {
   const {
     attributes,
@@ -60,6 +64,9 @@ function SortablePaintingCard({
     opacity: isDragging ? 0.5 : 1,
   }
 
+  const isAvailable =
+    optimisticAvailable !== undefined ? optimisticAvailable : painting.available
+
   return (
     <Card ref={setNodeRef} style={style} className="overflow-hidden">
       <div className="bg-muted relative aspect-square">
@@ -70,7 +77,7 @@ function SortablePaintingCard({
           className="object-cover transition-transform hover:scale-105"
           sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
         />
-        {!painting.available && (
+        {!isAvailable && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/60 text-sm font-medium text-white">
             Sold / Unavailable
           </div>
@@ -103,6 +110,7 @@ function SortablePaintingCard({
             available={painting.available}
             label="Available"
             showLabel
+            onToggle={onToggle}
           />
         </div>
       </CardContent>
@@ -175,6 +183,23 @@ export function SortablePaintingsGrid({
   collectionId,
 }: SortablePaintingsGridProps) {
   const [paintings, setPaintings] = useState(initialPaintings)
+  // Track optimistic availability state for each painting
+  const [availabilityState, setAvailabilityState] = useState<
+    Record<string, boolean>
+  >(() => {
+    const state: Record<string, boolean> = {}
+    initialPaintings.forEach((p) => {
+      state[p.id] = p.available
+    })
+    return state
+  })
+
+  const handleToggle = (paintingId: string) => (newValue: boolean) => {
+    setAvailabilityState((prev) => ({
+      ...prev,
+      [paintingId]: newValue,
+    }))
+  }
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -237,6 +262,8 @@ export function SortablePaintingsGrid({
               key={painting.id}
               painting={painting}
               collectionId={collectionId}
+              optimisticAvailable={availabilityState[painting.id]}
+              onToggle={handleToggle(painting.id)}
             />
           ))}
         </div>

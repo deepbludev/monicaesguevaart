@@ -40,6 +40,23 @@ interface AllPaintingsViewProps {
 
 export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
   const [view, setView] = useState<'grid' | 'list'>('grid')
+  // Track optimistic availability state for each painting
+  const [availabilityState, setAvailabilityState] = useState<
+    Record<string, boolean>
+  >(() => {
+    const state: Record<string, boolean> = {}
+    paintings.forEach((p) => {
+      state[p.id] = p.available
+    })
+    return state
+  })
+
+  const handleToggle = (paintingId: string) => (newValue: boolean) => {
+    setAvailabilityState((prev) => ({
+      ...prev,
+      [paintingId]: newValue,
+    }))
+  }
 
   return (
     <div className="space-y-6">
@@ -117,6 +134,7 @@ export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
                     <ToggleAvailable
                       paintingId={painting.id}
                       available={painting.available}
+                      onToggle={handleToggle(painting.id)}
                     />
                   </TableCell>
                   <TableCell className="text-right">
@@ -142,7 +160,7 @@ export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
                   className="object-cover transition-transform hover:scale-105"
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 />
-                {!painting.available && (
+                {!(availabilityState[painting.id] ?? painting.available) && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/60 text-sm font-medium text-white">
                     Sold / Unavailable
                   </div>
@@ -172,6 +190,7 @@ export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
                     available={painting.available}
                     label="Available"
                     showLabel
+                    onToggle={handleToggle(painting.id)}
                   />
                 </div>
               </CardContent>

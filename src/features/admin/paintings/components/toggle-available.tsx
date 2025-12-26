@@ -9,6 +9,7 @@ interface ToggleAvailableProps {
   available: boolean
   label?: string
   showLabel?: boolean
+  onToggle?: (newValue: boolean) => void
 }
 
 export function ToggleAvailable({
@@ -16,6 +17,7 @@ export function ToggleAvailable({
   available: initialAvailable,
   label,
   showLabel = false,
+  onToggle,
 }: ToggleAvailableProps) {
   // Use local state for optimistic updates - initialize from prop but don't sync
   const [localAvailable, setLocalAvailable] = useState(initialAvailable)
@@ -28,6 +30,8 @@ export function ToggleAvailable({
     const newValue = !localAvailable
     // Optimistic update
     setLocalAvailable(newValue)
+    // Notify parent component of the change
+    onToggle?.(newValue)
 
     const formData = new FormData()
     formData.append('paintingId', paintingId)
@@ -41,6 +45,7 @@ export function ToggleAvailable({
       } catch (error) {
         // Revert on error
         setLocalAvailable(initialAvailable)
+        onToggle?.(initialAvailable)
         console.error('Failed to toggle painting availability:', error)
       }
     })
