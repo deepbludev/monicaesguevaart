@@ -114,23 +114,37 @@ export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
                   <TableCell>{painting.medium || '-'}</TableCell>
                   <TableCell>{painting.size}</TableCell>
                   <TableCell>
-                    <form action={togglePaintingAvailable}>
+                    <form
+                      action={togglePaintingAvailable}
+                      id={`form-${painting.id}`}
+                    >
                       <input
                         type="hidden"
                         name="paintingId"
                         value={painting.id}
                       />
-                      <button
-                        type="submit"
+                      <label
                         className="cursor-pointer"
                         title={
                           painting.available
                             ? 'Mark as unavailable'
                             : 'Mark as available'
                         }
+                        htmlFor={`checkbox-${painting.id}`}
                       >
-                        <Checkbox checked={painting.available} />
-                      </button>
+                        <Checkbox
+                          id={`checkbox-${painting.id}`}
+                          checked={painting.available}
+                          onCheckedChange={() => {
+                            const form = document.getElementById(
+                              `form-${painting.id}`,
+                            ) as HTMLFormElement
+                            if (form) {
+                              form.submit()
+                            }
+                          }}
+                        />
+                      </label>
                     </form>
                   </TableCell>
                   <TableCell className="text-right">
@@ -181,24 +195,38 @@ export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
                 </Link>
                 <p>{painting.size}</p>
                 <div className="mt-2 flex items-center gap-2">
-                  <form action={togglePaintingAvailable}>
+                  <form
+                    action={togglePaintingAvailable}
+                    id={`form-grid-${painting.id}`}
+                  >
                     <input
                       type="hidden"
                       name="paintingId"
                       value={painting.id}
                     />
-                    <button
-                      type="submit"
+                    <label
                       className="flex cursor-pointer items-center gap-2"
                       title={
                         painting.available
                           ? 'Mark as unavailable'
                           : 'Mark as available'
                       }
+                      htmlFor={`checkbox-grid-${painting.id}`}
                     >
-                      <Checkbox checked={painting.available} />
+                      <Checkbox
+                        id={`checkbox-grid-${painting.id}`}
+                        checked={painting.available}
+                        onCheckedChange={() => {
+                          const form = document.getElementById(
+                            `form-grid-${painting.id}`,
+                          ) as HTMLFormElement
+                          if (form) {
+                            form.submit()
+                          }
+                        }}
+                      />
                       <span className="text-xs">Available</span>
-                    </button>
+                    </label>
                   </form>
                 </div>
               </CardContent>
