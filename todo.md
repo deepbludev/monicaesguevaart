@@ -10,7 +10,7 @@
 - [x] make admin sidebar full size
 - [x] refactor to use vertical architecture with atmoic design patterns
 - [x] FAQ page
-- [ ] review homepage content
+- [x] review homepage content
 - [ ] Add exhibitions to about page
 - [ ] Setup contact page w/ emails
 - [ ] Document and update README.md with new features and setup instructions
