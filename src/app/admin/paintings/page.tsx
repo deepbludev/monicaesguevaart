@@ -1,11 +1,11 @@
 import Link from 'next/link'
-import { getAllPaintings } from '@/actions/paintings'
-import { getCollections } from '@/actions/collections'
-import { Button } from '@/components/ui/button'
+import { getAllPaintings } from '@/features/admin/paintings/actions/paintings'
+import { getAllCollectionsForAdmin as getCollections } from '@/features/admin/collections/actions/collections'
+import { Button } from '@/components/atoms/button'
 import { Plus } from 'lucide-react'
-import { AllPaintingsView } from '@/components/admin/all-paintings-view'
-import { CollectionFilter } from '@/components/admin/collection-filter'
-import { PaintingSearch } from '@/components/admin/painting-search'
+import { AllPaintingsView } from '@/features/admin/paintings/components/all-paintings-view'
+import { CollectionFilter } from '@/features/admin/collections/components/collection-filter'
+import { PaintingSearch } from '@/features/admin/paintings/components/painting-search'
 
 export default async function PaintingsPage({
   searchParams,

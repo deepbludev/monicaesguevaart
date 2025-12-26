@@ -1,4 +1,4 @@
-import { CollectionForm } from '@/components/collection-form'
+import { CollectionForm } from '@/features/admin/collections/components/collection-form'
 import { PrismaClient } from '@prisma/client'
 import { notFound } from 'next/navigation'
 

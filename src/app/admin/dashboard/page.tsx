@@ -1,16 +1,16 @@
 import { verifySession } from '@/lib/session'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getDashboardStats as getCollectionStats } from '@/actions/collections'
-import { getDashboardStats as getPaintingStats } from '@/actions/paintings'
-import { Button } from '@/components/ui/button'
+import { getDashboardStats as getCollectionStats } from '@/features/admin/collections/actions/collections'
+import { getDashboardStats as getPaintingStats } from '@/features/admin/paintings/actions/paintings'
+import { Button } from '@/components/atoms/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/components/atoms/card'
 import {
   Plus,
   Images,

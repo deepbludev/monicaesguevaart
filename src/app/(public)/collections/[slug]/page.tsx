@@ -1,8 +1,8 @@
-import { getCollectionBySlug } from '@/actions/collections'
+import { getCollectionBySlug } from '@/features/public/collections/actions/collections'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ParallaxHeaderStrip } from '@/components/parallax-header-strip'
+import { ParallaxHeaderStrip } from '@/features/layout/components/parallax-header-strip'
 
 export default async function CollectionDetailPage({
   params,

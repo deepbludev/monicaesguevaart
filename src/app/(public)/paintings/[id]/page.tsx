@@ -1,8 +1,8 @@
-import { getPainting } from '@/actions/paintings'
+import { getPainting } from '@/features/public/paintings/actions/paintings'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/atoms/button'
 import { ArrowLeft } from 'lucide-react'
 
 export default async function PaintingDetailPage({

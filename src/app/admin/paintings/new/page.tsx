@@ -1,5 +1,5 @@
-import { getCollections } from '@/actions/collections'
-import { PaintingForm } from '@/components/painting-form'
+import { getAllCollectionsForAdmin as getCollections } from '@/features/admin/collections/actions/collections'
+import { PaintingForm } from '@/features/admin/paintings/components/painting-form'
 
 export default async function NewPaintingPage() {
   const collections = await getCollections()

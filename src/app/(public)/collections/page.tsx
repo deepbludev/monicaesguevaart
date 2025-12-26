@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getCollections } from '@/actions/collections'
-import { ParallaxHeaderStrip } from '@/components/parallax-header-strip'
+import { getCollections } from '@/features/public/collections/actions/collections'
+import { ParallaxHeaderStrip } from '@/features/layout/components/parallax-header-strip'
 
 export default async function CollectionsIndexPage() {
   const collections = await getCollections()
