@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { LayoutGrid, List as ListIcon } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/atoms/button'
 import { SortableCollectionsTable } from './sortable-collections-table'
 import { SortableCollectionsGrid } from './sortable-collections-grid'
 

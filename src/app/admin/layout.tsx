@@ -10,9 +10,9 @@ export default function AdminLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
-      <div className="mt-20 flex h-[calc(100vh-5rem)] w-full">
+      <div className="mt-20 flex w-full flex-1 overflow-hidden">
         <AdminSidebar />
-        <main className="flex-1 p-8 pt-28">{children}</main>
+        <main className="flex-1 overflow-y-auto p-8 pt-28">{children}</main>
       </div>
       <Footer />
     </div>

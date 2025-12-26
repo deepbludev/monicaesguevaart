@@ -18,16 +18,16 @@ import {
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/atoms/button'
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/components/atoms/card'
 import { Trash, Edit, Images, GripVertical } from 'lucide-react'
-import { deleteCollection, reorderCollections } from '@/actions/collections'
+import { deleteCollection, reorderCollections } from '../actions/collections'
 import { useState } from 'react'
 import Image from 'next/image'
 

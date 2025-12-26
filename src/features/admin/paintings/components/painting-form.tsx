@@ -2,22 +2,22 @@
 
 import { useState, useRef } from 'react'
 import { useActionState } from 'react'
-import { createPainting, updatePainting } from '@/actions/paintings'
+import { createPainting, updatePainting } from '../actions/paintings'
 import { ALLOWED_TYPES } from '@/lib/blob'
 import { MEDIUM_OPTIONS } from '@/lib/mediums'
 import { SIZE_OPTIONS } from '@/lib/sizes'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/atoms/button'
+import { Input } from '@/components/atoms/input'
+import { Textarea } from '@/components/atoms/textarea'
+import { Label } from '@/components/atoms/label'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/atoms/card'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/atoms/select'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ExternalLink, ArrowLeft } from 'lucide-react'

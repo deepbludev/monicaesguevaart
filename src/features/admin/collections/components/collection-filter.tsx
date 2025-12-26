@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/atoms/select'
 
 interface CollectionFilterProps {
   collections: { id: string; title: string }[]

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Painting } from '@prisma/client'
 import { LayoutGrid, List as ListIcon } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/atoms/button'
 import { SortablePaintingsList } from './sortable-paintings-list'
 import { SortablePaintingsGrid } from './sortable-paintings-grid'
 

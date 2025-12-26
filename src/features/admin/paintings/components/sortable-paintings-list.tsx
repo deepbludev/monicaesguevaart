@@ -14,35 +14,32 @@ import {
   SortableContext,
   sortableKeyboardCoordinates,
   useSortable,
-  rectSortingStrategy,
+  verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Painting } from '@prisma/client'
 import { Edit, Trash, ExternalLink, GripVertical } from 'lucide-react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/atoms/button'
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import {
-  deletePainting,
-  togglePaintingAvailable,
-  reorderPaintings,
-} from '@/actions/paintings'
-import { Checkbox } from '@/components/ui/checkbox'
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/atoms/table'
+import { deletePainting, reorderPaintings } from '../actions/paintings'
+import { ToggleAvailable } from './toggle-available'
 import Image from 'next/image'
 import { useState } from 'react'
 
-interface SortablePaintingsGridProps {
+interface SortablePaintingsListProps {
   paintings: Painting[]
   collectionId: string
 }
 
-function SortablePaintingCard({
+function SortableRow({
   painting,
   collectionId,
 }: {
@@ -65,72 +62,45 @@ function SortablePaintingCard({
   }
 
   return (
-    <Card ref={setNodeRef} style={style} className="overflow-hidden">
-      <div className="bg-muted relative aspect-square">
-        <Image
-          src={painting.imageUrl}
-          alt={painting.title}
-          fill
-          className="object-cover transition-transform hover:scale-105"
-          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-        />
-        {!painting.available && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/60 text-sm font-medium text-white">
-            Sold / Unavailable
-          </div>
-        )}
-        <div className="absolute top-2 left-2">
+    <TableRow ref={setNodeRef} style={style}>
+      <TableCell>
+        <div className="flex items-center gap-2">
           <button
             {...attributes}
             {...listeners}
-            className="cursor-grab touch-none rounded bg-black/50 p-1 text-white hover:bg-black/70 active:cursor-grabbing"
+            className="cursor-grab touch-none active:cursor-grabbing"
             aria-label="Drag to reorder"
             suppressHydrationWarning
           >
-            <GripVertical className="h-4 w-4" />
+            <GripVertical className="text-muted-foreground h-4 w-4" />
           </button>
+          <span>{painting.order}</span>
         </div>
-      </div>
-      <CardHeader className="p-4 pb-2">
-        <CardTitle className="line-clamp-1 text-base">
-          {painting.title}
-        </CardTitle>
-        {painting.medium && (
-          <p className="text-muted-foreground text-xs">{painting.medium}</p>
-        )}
-      </CardHeader>
-      <CardContent className="text-muted-foreground p-4 pt-0 text-sm">
-        <p>{painting.size}</p>
-        <div className="mt-2 flex items-center gap-2">
-          <form action={togglePaintingAvailable} id={`form-${painting.id}`}>
-            <input type="hidden" name="paintingId" value={painting.id} />
-            <label
-              htmlFor={`form-${painting.id}`}
-              className="flex cursor-pointer items-center gap-2"
-              title={
-                painting.available ? 'Mark as unavailable' : 'Mark as available'
-              }
-              onClick={(e) => {
-                e.preventDefault()
-                const form = e.currentTarget.closest('form')
-                if (form) {
-                  form.requestSubmit()
-                }
-              }}
-            >
-              <Checkbox checked={painting.available} />
-              <span className="text-xs">Available</span>
-            </label>
-          </form>
+      </TableCell>
+      <TableCell>
+        <div className="relative h-10 w-10 overflow-hidden rounded">
+          <Image
+            src={painting.imageUrl}
+            alt={painting.title}
+            fill
+            className="object-cover"
+            sizes="40px"
+          />
         </div>
-      </CardContent>
-      <CardFooter className="flex items-center justify-between p-4 pt-0">
-        <span className="text-muted-foreground text-xs">
-          Order: {painting.order}
-        </span>
+      </TableCell>
+      <TableCell className="font-medium">{painting.title}</TableCell>
+      <TableCell>{painting.medium || '-'}</TableCell>
+      <TableCell>{painting.size}</TableCell>
+      <TableCell>
+        <ToggleAvailable
+          paintingId={painting.id}
+          available={painting.available}
+        />
+      </TableCell>
+      <TableCell className="text-right">
         <PaintingActions collectionId={collectionId} paintingId={painting.id} />
-      </CardFooter>
-    </Card>
+      </TableCell>
+    </TableRow>
   )
 }
 
@@ -188,10 +158,10 @@ function PaintingActions({
   )
 }
 
-export function SortablePaintingsGrid({
+export function SortablePaintingsList({
   paintings: initialPaintings,
   collectionId,
-}: SortablePaintingsGridProps) {
+}: SortablePaintingsListProps) {
   const [paintings, setPaintings] = useState(initialPaintings)
 
   const sensors = useSensors(
@@ -245,20 +215,35 @@ export function SortablePaintingsGrid({
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
-      <SortableContext
-        items={paintings.map((p) => p.id)}
-        strategy={rectSortingStrategy}
-      >
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {paintings.map((painting) => (
-            <SortablePaintingCard
-              key={painting.id}
-              painting={painting}
-              collectionId={collectionId}
-            />
-          ))}
-        </div>
-      </SortableContext>
+      <div className="bg-card rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Order</TableHead>
+              <TableHead>Image</TableHead>
+              <TableHead>Title</TableHead>
+              <TableHead>Medium</TableHead>
+              <TableHead>Size</TableHead>
+              <TableHead>Available</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <SortableContext
+              items={paintings.map((p) => p.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              {paintings.map((painting) => (
+                <SortableRow
+                  key={painting.id}
+                  painting={painting}
+                  collectionId={collectionId}
+                />
+              ))}
+            </SortableContext>
+          </TableBody>
+        </Table>
+      </div>
     </DndContext>
   )
 }

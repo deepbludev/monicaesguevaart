@@ -10,7 +10,7 @@ import {
   ExternalLink,
 } from 'lucide-react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/atoms/button'
 import {
   Table,
   TableBody,
@@ -18,16 +18,16 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from '@/components/atoms/table'
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { deletePainting, togglePaintingAvailable } from '@/actions/paintings'
-import { Checkbox } from '@/components/ui/checkbox'
+} from '@/components/atoms/card'
+import { deletePainting } from '../actions/paintings'
+import { ToggleAvailable } from './toggle-available'
 import Image from 'next/image'
 
 type PaintingWithCollection = Painting & {
@@ -114,38 +114,10 @@ export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
                   <TableCell>{painting.medium || '-'}</TableCell>
                   <TableCell>{painting.size}</TableCell>
                   <TableCell>
-                    <form
-                      action={togglePaintingAvailable}
-                      id={`form-${painting.id}`}
-                    >
-                      <input
-                        type="hidden"
-                        name="paintingId"
-                        value={painting.id}
-                      />
-                      <label
-                        className="cursor-pointer"
-                        title={
-                          painting.available
-                            ? 'Mark as unavailable'
-                            : 'Mark as available'
-                        }
-                        htmlFor={`checkbox-${painting.id}`}
-                      >
-                        <Checkbox
-                          id={`checkbox-${painting.id}`}
-                          checked={painting.available}
-                          onCheckedChange={() => {
-                            const form = document.getElementById(
-                              `form-${painting.id}`,
-                            ) as HTMLFormElement
-                            if (form) {
-                              form.submit()
-                            }
-                          }}
-                        />
-                      </label>
-                    </form>
+                    <ToggleAvailable
+                      paintingId={painting.id}
+                      available={painting.available}
+                    />
                   </TableCell>
                   <TableCell className="text-right">
                     <PaintingActions
@@ -195,39 +167,12 @@ export function AllPaintingsView({ paintings }: AllPaintingsViewProps) {
                 </Link>
                 <p>{painting.size}</p>
                 <div className="mt-2 flex items-center gap-2">
-                  <form
-                    action={togglePaintingAvailable}
-                    id={`form-grid-${painting.id}`}
-                  >
-                    <input
-                      type="hidden"
-                      name="paintingId"
-                      value={painting.id}
-                    />
-                    <label
-                      className="flex cursor-pointer items-center gap-2"
-                      title={
-                        painting.available
-                          ? 'Mark as unavailable'
-                          : 'Mark as available'
-                      }
-                      htmlFor={`checkbox-grid-${painting.id}`}
-                    >
-                      <Checkbox
-                        id={`checkbox-grid-${painting.id}`}
-                        checked={painting.available}
-                        onCheckedChange={() => {
-                          const form = document.getElementById(
-                            `form-grid-${painting.id}`,
-                          ) as HTMLFormElement
-                          if (form) {
-                            form.submit()
-                          }
-                        }}
-                      />
-                      <span className="text-xs">Available</span>
-                    </label>
-                  </form>
+                  <ToggleAvailable
+                    paintingId={painting.id}
+                    available={painting.available}
+                    label="Available"
+                    showLabel
+                  />
                 </div>
               </CardContent>
               <CardFooter className="flex items-center justify-between p-4 pt-0">
