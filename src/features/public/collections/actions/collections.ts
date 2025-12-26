@@ -28,3 +28,21 @@ export async function getCollectionBySlug(slug: string) {
   })
 }
 
+export async function getFeaturedCollections() {
+  return await prisma.collection.findMany({
+    where: {
+      paintings: {
+        some: {},
+      },
+    },
+    orderBy: { order: 'asc' },
+    take: 3,
+    include: {
+      paintings: {
+        orderBy: { order: 'asc' },
+        take: 1,
+      },
+    },
+  })
+}
+

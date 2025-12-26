@@ -1,8 +1,21 @@
+'use client'
+
+import Image from 'next/image'
+
 export function ExperienceSection() {
   return (
     <section className="bg-primary text-primary-foreground relative overflow-hidden py-32 text-center">
-      {/* Background texture or gradient */}
-      <div className="from-primary absolute inset-0 bg-gradient-to-tr to-black opacity-50" />
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/experience-bg.jpg"
+          alt="Experience background"
+          fill
+          className="object-cover"
+          quality={90}
+        />
+        <div className="absolute inset-0 bg-black/50" />
+      </div>
 
       <div className="relative z-10 container mx-auto max-w-3xl space-y-12 px-6">
         <h2 className="font-serif text-4xl md:text-5xl">

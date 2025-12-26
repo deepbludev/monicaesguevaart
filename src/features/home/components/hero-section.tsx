@@ -4,12 +4,33 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/atoms/button'
+import { useEffect, useRef } from 'react'
 
 export function HeroSection() {
+  const containerRef = useRef<HTMLElement>(null)
+  const imageRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current || !imageRef.current) return
+
+      const scrolled = window.scrollY
+      const rate = scrolled * 0.5 // Parallax speed (adjust for more/less effect)
+
+      imageRef.current.style.transform = `translateY(${rate}px)`
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section
+      ref={containerRef}
+      className="relative h-screen w-full overflow-hidden"
+    >
       {/* Background Image */}
-      <div className="absolute inset-0">
+      <div ref={imageRef} className="absolute inset-0 -top-[20%] -bottom-[20%]">
         <Image
           src="/hero.jpg"
           alt="Monica Esgueva Art"
