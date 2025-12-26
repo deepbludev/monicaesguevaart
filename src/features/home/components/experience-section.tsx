@@ -14,7 +14,7 @@ export function ExperienceSection() {
           className="object-cover"
           quality={90}
         />
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       <div className="relative z-10 container mx-auto max-w-3xl space-y-12 px-6">
