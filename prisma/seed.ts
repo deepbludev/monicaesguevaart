@@ -180,9 +180,9 @@ async function main() {
     {
       title: 'Acqua',
       slug: 'acqua',
-      tagline: 'The Language of Flow',
+      tagline: 'The Language of Water',
       description:
-        'A collection inspired by emotional alchemy, where fluid movement and color invite the heart to soften, release, and expand.',
+        'Water is consciousness in motion.\n\nIt is the realm of emotion, memory, and the subconscious — the place where healing begins before the mind is aware of it.\n\nThe AQUA collection emerges from this living intelligence.\nThese paintings carry the frequency of flow, release, and emotional alchemy. They invite the nervous system to soften, the heart to open, and the deeper layers of the psyche to return to coherence.\n\nThe aquatic beings that appear in this series are not symbols — they are witnesses.\nThey move between worlds effortlessly, untouched by rigidity or fear, reminding us of a state of freedom that once felt natural and can be remembered again. Their presence speaks to the part of you that knows how to move with life rather than resist it.\n\nThese works act as gentle portals into the subconscious field.\nThey help dissolve emotional residue, soften stored grief, and allow long-held tensions to melt back into the flow of being. In their presence, something loosens — not by force, but by resonance.\n\nAQUA is not about water as an element.\nIt is about becoming fluid again.\n\nLet these paintings wash through you.\nLet them touch the places that words cannot reach.\nHealing here does not come from effort, but from surrender — from remembering that your true nature, like water, already knows how to find its way home.',
       medium: 'Acrylic on canvas',
       order: 2,
     },

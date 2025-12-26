@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getCollections } from '@/features/public/collections/actions/collections'
 import { ParallaxHeaderStrip } from '@/features/layout/components/parallax-header-strip'
+import { CollectionDescription } from '@/features/public/collections/components/collection-description'
 
 export default async function CollectionsIndexPage() {
   const collections = await getCollections()
@@ -54,9 +55,7 @@ export default async function CollectionsIndexPage() {
                     </p>
                   )}
                 </div>
-                <p className="text-base leading-relaxed font-light md:text-lg">
-                  {collection.description}
-                </p>
+                <CollectionDescription description={collection.description} />
                 <div className="pt-2">
                   <Link
                     href={`/collections/${collection.slug}`}

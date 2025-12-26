@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ParallaxHeaderStrip } from '@/features/layout/components/parallax-header-strip'
+import { CollectionDescription } from '@/features/public/collections/components/collection-description'
 
 export default async function CollectionDetailPage({
   params,
@@ -41,9 +42,9 @@ export default async function CollectionDetailPage({
             </p>
           )}
           <div className="border-primary/30 mx-auto w-24 border-t" />
-          <p className="mx-auto max-w-2xl text-base leading-relaxed font-light md:text-lg">
-            {collection.description}
-          </p>
+          <div className="mx-auto max-w-2xl">
+            <CollectionDescription description={collection.description} />
+          </div>
         </div>
       </section>
 
