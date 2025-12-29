@@ -11,6 +11,8 @@
 - [x] refactor to use vertical architecture with atmoic design patterns
 - [x] FAQ page
 - [x] review homepage content
+- [x] collections title and image w/link to collection page
+- [x] collections order in homepage
 - [ ] Add exhibitions to about page
 - [ ] Setup contact page w/ emails
 - [ ] Document and update README.md with new features and setup instructions
