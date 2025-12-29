@@ -5,6 +5,7 @@ import { Button } from '@/components/atoms/button'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ParallaxHeaderStrip } from '@/features/layout/components/parallax-header-strip'
+import { ExhibitionsSection } from '@/features/public/about/components/exhibitions-section'
 
 export default function AboutPage() {
   return (
@@ -265,6 +266,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Exhibitions & Publications Section */}
+      <ExhibitionsSection />
 
       {/* CTA */}
       <section className="py-24 text-center">
