@@ -33,7 +33,8 @@ export default async function CollectionsIndexPage() {
                   <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 shadow-sm transition-shadow duration-500 group-hover:shadow-xl">
                     <Image
                       src={
-                        collection.paintings[0]?.imageUrl || '/meart-default.png'
+                        collection.paintings[0]?.imageUrl ||
+                        '/meart-default.png'
                       }
                       alt={collection.title}
                       fill
@@ -51,7 +52,7 @@ export default async function CollectionsIndexPage() {
                     href={`/collections/${collection.slug}`}
                     className="group block cursor-pointer"
                   >
-                    <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl transition-colors group-hover:text-primary">
+                    <h2 className="group-hover:text-primary font-serif text-3xl transition-colors md:text-4xl lg:text-5xl">
                       {collection.title}
                     </h2>
                   </Link>
