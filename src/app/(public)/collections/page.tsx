@@ -26,24 +26,35 @@ export default async function CollectionsIndexPage() {
             >
               {/* Image on Left */}
               <div className="shrink-0 md:w-1/3 lg:max-w-xs">
-                <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 shadow-sm">
-                  <Image
-                    src={
-                      collection.paintings[0]?.imageUrl || '/meart-default.png'
-                    }
-                    alt={collection.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                <Link
+                  href={`/collections/${collection.slug}`}
+                  className="group block cursor-pointer"
+                >
+                  <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 shadow-sm transition-shadow duration-500 group-hover:shadow-xl">
+                    <Image
+                      src={
+                        collection.paintings[0]?.imageUrl || '/meart-default.png'
+                      }
+                      alt={collection.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10" />
+                  </div>
+                </Link>
               </div>
 
               {/* Content on Right */}
               <div className="flex flex-col justify-center space-y-4 md:flex-1">
                 <div className="space-y-2">
-                  <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl">
-                    {collection.title}
-                  </h2>
+                  <Link
+                    href={`/collections/${collection.slug}`}
+                    className="group block cursor-pointer"
+                  >
+                    <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl transition-colors group-hover:text-primary">
+                      {collection.title}
+                    </h2>
+                  </Link>
                   {(collection as { medium?: string | null }).medium && (
                     <p className="text-muted-foreground text-sm">
                       {(collection as { medium?: string | null }).medium}
