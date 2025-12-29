@@ -1,23 +1,29 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useActionState } from 'react'
+import { useFormStatus } from 'react-dom'
 import { Button } from '@/components/atoms/button'
 import { Input } from '@/components/atoms/input'
 import { Textarea } from '@/components/atoms/textarea'
-import { useState } from 'react'
+import { submitContactForm } from '@/features/public/contact/actions/contact'
+
+function SubmitButton() {
+  const { pending } = useFormStatus()
+  return (
+    <Button
+      type="submit"
+      size="lg"
+      className="w-full px-12 py-6 text-xs tracking-widest uppercase md:w-auto"
+      disabled={pending}
+    >
+      {pending ? 'Sending...' : 'Send Message'}
+    </Button>
+  )
+}
 
 export default function ContactPage() {
-  const [status, setStatus] = useState<
-    'idle' | 'submitting' | 'success' | 'error'
-  >('idle')
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setStatus('submitting')
-    // Simulate submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setStatus('success')
-  }
+  const [state, action] = useActionState(submitContactForm, undefined)
 
   return (
     <main className="bg-background min-h-screen pt-20">
@@ -43,7 +49,7 @@ export default function ContactPage() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="rounded-sm bg-neutral-50 p-8 shadow-sm md:p-12 dark:bg-neutral-900"
             >
-              {status === 'success' ? (
+              {state?.success ? (
                 <div className="space-y-4 py-12 text-center">
                   <h3 className="font-serif text-2xl text-green-600">
                     Message Sent
@@ -53,14 +59,14 @@ export default function ContactPage() {
                   </p>
                   <Button
                     variant="outline"
-                    onClick={() => setStatus('idle')}
+                    onClick={() => window.location.reload()}
                     className="mt-4"
                   >
                     Send Another Message
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-8">
+                <form action={action} className="space-y-8">
                   <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                     <div className="space-y-2">
                       <label
@@ -71,10 +77,14 @@ export default function ContactPage() {
                       </label>
                       <Input
                         id="name"
+                        name="name"
                         required
                         placeholder="Your Name"
                         className="bg-background"
                       />
+                      {state?.errors?.name && (
+                        <p className="text-sm text-red-500">{state.errors.name}</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <label
@@ -85,11 +95,15 @@ export default function ContactPage() {
                       </label>
                       <Input
                         id="email"
+                        name="email"
                         type="email"
                         required
                         placeholder="your@email.com"
                         className="bg-background"
                       />
+                      {state?.errors?.email && (
+                        <p className="text-sm text-red-500">{state.errors.email}</p>
+                      )}
                     </div>
                   </div>
 
@@ -102,10 +116,14 @@ export default function ContactPage() {
                     </label>
                     <Input
                       id="subject"
+                      name="subject"
                       required
                       placeholder="Inquiry about..."
                       className="bg-background"
                     />
+                    {state?.errors?.subject && (
+                      <p className="text-sm text-red-500">{state.errors.subject}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
@@ -117,20 +135,21 @@ export default function ContactPage() {
                     </label>
                     <Textarea
                       id="message"
+                      name="message"
                       required
                       placeholder="Your message..."
                       className="bg-background min-h-[200px] resize-none"
                     />
+                    {state?.errors?.message && (
+                      <p className="text-sm text-red-500">{state.errors.message}</p>
+                    )}
                   </div>
 
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full px-12 py-6 text-xs tracking-widest uppercase md:w-auto"
-                    disabled={status === 'submitting'}
-                  >
-                    {status === 'submitting' ? 'Sending...' : 'Send Message'}
-                  </Button>
+                  {state?.message && (
+                    <p className="text-sm text-red-500">{state.message}</p>
+                  )}
+
+                  <SubmitButton />
                 </form>
               )}
             </motion.div>

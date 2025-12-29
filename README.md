@@ -75,9 +75,22 @@ ADMIN_PASSWORD="your-secure-password"
 # Vercel Blob Storage token (for image uploads)
 # Get this from: https://vercel.com/dashboard/stores
 BLOB_READ_WRITE_TOKEN="vercel_blob_rw_xxxxxxxxxxxxx"
+
+# Resend API key (for contact form email notifications)
+# Get this from: https://resend.com/api-keys
+RESEND_API_KEY="re_xxxxxxxxxxxxx"
+
+# Contact email address (where contact form submissions are sent)
+CONTACT_EMAIL="contact@example.com"
+
+# Resend from email address (optional, defaults to contact@[contact-email-domain])
+# Must be from a verified domain in Resend
+RESEND_FROM_EMAIL="contact@yourdomain.com"
 ```
 
 **Note**: If `BLOB_READ_WRITE_TOKEN` is not set, you can still use external image URLs when creating/editing paintings.
+
+**Note**: Contact form email notifications require both `RESEND_API_KEY` and `CONTACT_EMAIL` to be set. Without these, the contact form will display an error message to users.
 
 ## Installation & Setup
 
@@ -467,7 +480,7 @@ The public-facing website is accessible to all visitors and showcases the art co
 - **Collection Detail** (`/collections/[slug]`): Individual collection page with all paintings
 - **Painting Detail** (`/paintings/[id]`): Individual painting page with full details
 - **About** (`/about`): About the artist page
-- **Contact** (`/contact`): Contact page
+- **Contact** (`/contact`): Contact page with form that sends email notifications
 
 ### Features
 
